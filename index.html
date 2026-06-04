@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Shahzad & Farha</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Matches the premium warm ivory tone of WhatsApp Image 2026-06-04 at 11.13.38 AM (1)_2.jpeg */
+            --bg-gold-light: #fcf8f2; 
+            --accent-gold: #c3a463;
+            --text-dark: #3a352a;
+            --text-muted: #787264;
+            
+            --bg-card: rgba(255, 253, 250, 0.92);
+            --border-gold: rgba(195, 164, 99, 0.35);
+            --card-shadow: 0 35px 60px -15px rgba(180, 150, 100, 0.2);
+        }
+
+        body {
+            /* Implements a high-end textured linen effect mixed with a radial glow */
+            background-color: var(--bg-gold-light);
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, rgba(240, 230, 215, 0.4) 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='1%25'%3E%3Cstop offset='0%25' stop-color='%23d0b070' stop-opacity='0.4'/%3E%3Cstop offset='100%25' stop-color='%23d0b070' stop-opacity='0'/%3E%3C/radialGradient%3E%3Ccircle cx='10' cy='20' r='1.5' fill='url(%23g)'/%3E%3Ccircle cx='65' cy='15' r='1' fill='url(%23g)'/%3E%3Ccircle cx='40' cy='75' r='2' fill='url(%23g)'/%3E%3Ccircle cx='85' cy='60' r='1.2' fill='url(%23g)'/%3E%3C/svg%3E");
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-dark);
+        }
+
+        .invitation-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            /* Card surface mimics raw linen paper paperstock texture */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath d='M1 3h1v1H1V3zm2-2h1v1H3V1z' fill='%23bfa15f' fill-opacity='0.03'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .font-arabic { font-family: 'Amiri', serif; }
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-sans-labels { font-family: 'Montserrat', sans-serif; }
+
+        .floating-petal {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.22;
+            z-index: 1;
+            animation: driftUp 16s infinite linear;
+        }
+
+        @keyframes driftUp {
+            0% { transform: translateY(105vh) translateX(0) rotate(0deg); }
+            50% { transform: translateY(50vh) translateX(50px) rotate(180deg); }
+            100% { transform: translateY(-10vh) translateX(-20px) rotate(360deg); }
+        }
+
+        /* Arched luxury inner frame pulled from the template image */
+        .luxury-frame {
+            border: 1px solid var(--border-gold);
+            border-radius: 999px 999px 4px 4px;
+            position: relative;
+            transition: border 0.5s ease;
+        }
+        .luxury-frame::before {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 0.5px solid rgba(195, 164, 99, 0.2);
+            border-radius: 999px 999px 2px 2px;
+            pointer-events: none;
+        }
+
+        .envelope-viewport {
+            perspective: 2000px;
+            z-index: 100;
+        }
+
+        .envelope-box {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            aspect-ratio: 1.4 / 1;
+            background: #e8dcbf;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.06);
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            border-radius: 4px;
+        }
+
+        .envelope-flap-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 52%;
+            background: #dfd3b4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.4s;
+            z-index: 5;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .envelope-pocket-front {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: #e3d5b0;
+            clip-path: polygon(0 20%, 50% 70%, 100% 20%, 100% 100%, 0 100%);
+            z-index: 4;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .envelope-preview-card {
+            position: absolute;
+            bottom: 5%; left: 5%; width: 90%; height: 80%;
+            background: #ffffff;
+            border: 1px solid rgba(195, 164, 99, 0.2);
+            border-radius: 2px;
+            z-index: 2;
+            transform: translateY(10%) scale(0.96);
+            opacity: 0.4;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .stage-open-flap .envelope-flap-top {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .stage-slide-card .envelope-preview-card {
+            transform: translateY(-80%) scale(1.02);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .stage-fade-all {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+            pointer-events: none;
+        }
+
+        @keyframes dynamicBounce {
+            0%, 100% { transform: translate(-50%, -12px); }
+            50% { transform: translate(-50%, -2px); }
+        }
+        .cta-bounce {
+            animation: dynamicBounce 2s infinite ease-in-out;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="relative min-h-screen overflow-x-hidden flex flex-col items-center justify-center px-4 py-6 sm:py-12 selection:bg-amber-100 no-scrollbar">
+
+    <!-- ✉️ INTRODUCTORY CINEMATIC ENVELOPE GATEWAY -->
+    <div id="envelope-gate" class="fixed inset-0 bg-[#f8f4eb] z-40 flex items-center justify-center p-4 transition-all duration-1000 cubic-bezier(0.25, 1, 0.5, 1)">
+        <div class="envelope-viewport w-full flex justify-center items-center">
+            
+            <div id="main-envelope" class="envelope-box">
+                <!-- Top Flap -->
+                <div class="envelope-flap-top"></div>
+                
+                <!-- Pocket Layer -->
+                <div class="envelope-pocket-front"></div>
+
+                <!-- Preview Mini Card inside -->
+                <div class="envelope-preview-card p-6 flex flex-col items-center justify-center text-center">
+                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-amber-800/60 uppercase block mb-1">Wedding Invitation</span>
+                    <h2 class="font-serif text-2xl text-stone-800 tracking-wide">Shahzad & Farha</h2>
+                    <div class="w-8 h-[0.5px] bg-amber-950/20 my-3"></div>
+                    <span class="font-sans-labels text-[8px] tracking-widest text-stone-400 uppercase">July 11, 2026</span>
+                </div>
+
+                <!-- 🏷️ "PRESS HERE" DIRECTED ARROW CALL TO ACTION -->
+                <div id="press-here-indicator" class="absolute top-[20%] left-1/2 cta-bounce z-30 text-center pointer-events-none flex flex-col items-center">
+                    <span class="font-sans-labels text-[10px] uppercase tracking-[0.35em] text-amber-900 font-semibold bg-white/60 backdrop-blur-xs px-3 py-1 rounded-full border border-amber-500/20 shadow-xs">
+                        Press Here
+                    </span>
+                    <span class="text-amber-950 text-xl mt-1 animate-pulse">↓</span>
+                </div>
+
+                <!-- Luxury Wax Seal Button Base -->
+                <button id="seal-btn" onclick="executeCinematicOpen()" class="absolute top-[48%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-[#9e2626] rounded-full shadow-2xl flex items-center justify-center border-2 border-[#dfc183] transition-all duration-500 hover:scale-105 active:scale-95 group">
+                    <div class="absolute inset-1 border border-[#dfc183]/40 rounded-full animate-spin-slow opacity-60"></div>
+                    <span class="font-script text-2xl text-[#dfc183] select-none transform group-hover:rotate-12 transition-transform">S</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- White Soft Rose & Leaf Sprays (Top Left & Bottom Right Corners) matching Pinterest Template Asset Frame Layout -->
+    <div class="fixed top-0 left-0 w-44 sm:w-72 h-44 sm:h-72 opacity-40 pointer-events-none z-0 bg-contain bg-no-repeat bg-left-top" style="background-image: url('https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=400&auto=format&fit=crop'); filter: sepia(0.15) contrast(1.05);"></div>
+    <div class="fixed bottom-0 right-0 w-44 sm:w-72 h-44 sm:h-72 opacity-40 pointer-events-none z-0 bg-contain bg-no-repeat bg-right-bottom" style="background-image: url('https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=400&auto=format&fit=crop'); filter: sepia(0.15) contrast(1.05); transform: rotate(180deg);"></div>
+
+    <!-- 🍂 FLOATING AMBIENT PARTICLES -->
+    <div class="floating-petal text-amber-600 text-xl" style="left: 8%; animation-delay: 0s; animation-duration: 14s;">🍃</div>
+    <div class="floating-petal text-amber-700/40 text-lg" style="left: 28%; animation-delay: 3s; animation-duration: 22s;">✨</div>
+    <div class="floating-petal text-amber-600 text-2xl" style="left: 60%; animation-delay: 1s; animation-duration: 18s;">🍃</div>
+    <div class="floating-petal text-amber-700/40 text-base" style="left: 85%; animation-delay: 6s; animation-duration: 13s;">✨</div>
+
+    <!-- ✉_ MAIN INVITATION MAINBODY STRUCTURE -->
+    <div id="production-card" class="invitation-card w-full max-w-xl p-4 sm:p-5 rounded-xs z-10 opacity-0 transform translate-y-12 transition-all duration-1000 ease-out pointer-events-none">
+        <div class="luxury-frame pt-16 pb-12 px-6 sm:px-10 text-center bg-gradient-to-b from-white/20 via-white/80 to-white/20">
+            
+            <!-- Spacious Framing Around Bismillah Content -->
+            <div class="pb-4 my-2">
+                <div class="font-arabic text-3xl sm:text-4xl tracking-wide text-amber-900/90 mb-4 block">
+                    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+                </div>
+                <p class="font-sans-labels text-[9px] tracking-[0.18em] text-stone-400 font-light lowercase italic mt-3">
+                    "In the name of Allah, the most beneficent and merciful"
+                </p>
+            </div>
+
+            <!-- Host Family Block -->
+            <div class="space-y-1 mb-8 text-stone-800">
+                <h3 class="text-xl sm:text-2xl font-medium tracking-wide">Mr. Shahul Hameed <span class="text-base font-light text-stone-500">(Sabu Moopan)</span></h3>
+                <h3 class="text-xl sm:text-2xl font-medium tracking-wide">& Mrs. Shyna N.A</h3>
+                <p class="font-sans-labels text-[10px] tracking-widest text-stone-400 font-light pt-2 leading-relaxed">
+                    Moopan Manzil, Pazhambalacode P.O., Palakkad Dt.<br>
+                    Ph: 98475 80197, 98095 60305
+                </p>
+            </div>
+
+            <p class="text-base sm:text-lg text-stone-600 max-w-sm mx-auto leading-relaxed mb-6 font-light italic">
+                Cordially invite your esteemed presence with family on the auspicious occasion of the wedding of our son
+            </p>
+
+            <!-- 🤵 GROOM BLOCK -->
+            <div class="my-5">
+                <h1 class="text-5xl sm:text-6xl text-amber-800/90 font-light tracking-wide font-serif">Shahzad</h1>
+                <div class="max-w-md mx-auto text-[11px] text-stone-400 font-sans-labels font-light leading-relaxed mt-3 px-4">
+                    (Grand S/o. K. Ismail Moopan [Late] & K. U. Mariyakutty [Late]<br>
+                    and N. M. Abubacker [Late] & P. B. Fathima)
+                </div>
+            </div>
+
+            <!-- Connector Element -->
+            <div class="text-amber-700/50 text-4xl my-2 font-light select-none flex items-center justify-center gap-4">
+                <span class="w-10 h-[0.5px] bg-amber-900/20"></span>
+                <span class="font-script text-4xl lowercase text-amber-700">with</span>
+                <span class="w-10 h-[0.5px] bg-amber-900/20"></span>
+            </div>
+
+            <!-- 👰 BRIDE BLOCK -->
+            <div class="my-5 mb-10">
+                <h1 class="text-5xl sm:text-6xl text-amber-800/90 font-light tracking-wide font-serif">Farha</h1>
+                <div class="max-w-md mx-auto text-[11px] text-stone-400 font-sans-labels font-light leading-relaxed mt-3 px-4 space-y-1">
+                    <p class="text-stone-600 text-sm font-medium">D/o. Mr. Firosh Ussanar & Mrs. Khadeeja Firosh</p>
+                    <p class="text-[11px]">"Al Busthan" Vadakkenada, Kavassery P.O., Palakkad Dt.</p>
+                    <p class="text-[10px] pt-2 text-stone-400/90 leading-relaxed">
+                        (Grand D/o. Ussanar Sahib [Late] & Sara Umma [Late]<br>
+                        and Syed Mohammed [Late] & Umaiba Beevi)
+                    </p>
+                </div>
+            </div>
+
+            <!-- ⏳ METRIC TIMING CLOCK BLOCK -->
+            <div class="border-t border-b border-amber-900/10 py-5 my-8 max-w-sm mx-auto bg-stone-50/50 rounded-xs">
+                <p class="font-sans-labels text-[9px] tracking-[0.25em] text-stone-400 font-semibold uppercase mb-3">Time Remaining Unto The Holy Union</p>
+                <div id="countdown-clock" class="flex justify-center gap-5 text-amber-900 font-light text-2xl tracking-wide">
+                    <div><span id="days-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Days</span></div>
+                    <div><span id="hours-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Hours</span></div>
+                    <div><span id="minutes-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Mins</span></div>
+                    <div><span id="seconds-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Secs</span></div>
+                </div>
+            </div>
+
+            <!-- 📍 SCHEDULING DISPATCH LINKS -->
+            <div class="max-w-sm mx-auto mt-6">
+                <a href="https://maps.google.com/?q=Kalarikkal+Convention+Centre+Kuzhalmannam" target="_blank" 
+                   class="block p-5 bg-white/60 border border-amber-900/10 rounded-xs hover:-translate-y-0.5 hover:border-amber-600/30 transition-all duration-300 group shadow-xs">
+                    
+                    <div class="mb-4">
+                        <span class="font-sans-labels text-[9px] tracking-[0.2em] text-amber-800 font-semibold uppercase block mb-1">Date & Timing</span>
+                        <h4 class="text-xl text-stone-800 font-medium font-serif">Saturday, 11th July 2026</h4>
+                        <p class="text-stone-400 text-[11px] font-sans-labels font-light mt-0.5">(1448 Muharam 26)</p>
+                        <p class="text-amber-900/90 text-sm font-sans-labels font-medium mt-1.5">Between 11:00 AM to 2:00 PM</p>
+                    </div>
+
+                    <div class="text-stone-700 text-sm border-t border-stone-200/60 pt-4 group-hover:text-amber-900 transition-colors">
+                        <span class="font-sans-labels text-[9px] tracking-widest text-stone-400 uppercase block mb-1">Venue Destination</span>
+                        <p class="text-base font-medium text-stone-800">Kalarikkal Convention Centre</p>
+                        <p class="text-xs text-stone-500 font-sans-labels font-light mt-0.5">Kulavanmukku, Kuzhalmannam, Palakkad</p>
+                        <div class="mt-3 inline-flex items-center gap-1.5 text-[11px] text-amber-700 font-sans-labels font-medium underline tracking-wider group-hover:text-amber-900">
+                            📍 View on Google Maps
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Complementary Bottom Signoff Line -->
+            <div class="mt-10 pt-4 border-t border-stone-100">
+                <p class="font-sans-labels text-[10px] tracking-widest text-stone-400 uppercase font-medium">
+                    Best compliments from <span class="text-stone-600 font-semibold">Family</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🕒 LOGIC PROCESS AUTOMATION PIPELINE -->
+    <script>
+        const targetEventTimestamp = new Date("2026-07-11T11:00:00").getTime();
+
+        const internalCountdownTracker = setInterval(function() {
+            const currentSystemTimestamp = new Date().getTime();
+            const executionDeltaDistance = targetEventTimestamp - currentSystemTimestamp;
+
+            const parsedDays = Math.floor(executionDeltaDistance / (1000 * 60 * 60 * 24));
+            const parsedHours = Math.floor((executionDeltaDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const parsedMinutes = Math.floor((executionDeltaDistance % (1000 * 60 * 60)) / (1000 * 60));
+            const parsedSeconds = Math.floor((executionDeltaDistance % (1000 * 60)) / 1000);
+
+            document.getElementById("days-val").innerText = String(parsedDays).padStart(2, '0');
+            document.getElementById("hours-val").innerText = String(parsedHours).padStart(2, '0');
+            document.getElementById("minutes-val").innerText = String(parsedMinutes).padStart(2, '0');
+            document.getElementById("seconds-val").innerText = String(parsedSeconds).padStart(2, '0');
+
+            if (executionDeltaDistance < 0) {
+                clearInterval(internalCountdownTracker);
+                document.getElementById("countdown-clock").innerHTML = 
+                    "<p class='text-sm uppercase tracking-widest text-amber-800 font-sans-labels font-medium animate__animated animate__pulse animate__infinite'>The Marriage Celebration Has Commenced!</p>";
+            }
+        }, 1000);
+
+        function executeCinematicOpen() {
+            const envelope = document.getElementById('main-envelope');
+            const sealBtn = document.getElementById('seal-btn');
+            const indicatorLabel = document.getElementById('press-here-indicator');
+            const gateOverlay = document.getElementById('envelope-gate');
+            const targetProductionCard = document.getElementById('production-card');
+            
+            if (indicatorLabel) indicatorLabel.style.opacity = '0';
+            sealBtn.style.opacity = '0';
+            sealBtn.style.transform = 'translate(-50%, -50%) scale(0.4)';
+            envelope.classList.add('stage-open-flap');
+            
+            setTimeout(() => {
+                envelope.classList.add('stage-slide-card');
+            }, 600);
+            
+            setTimeout(() => {
+                gateOverlay.classList.add('stage-fade-all');
+                targetProductionCard.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
+                
+                setTimeout(() => {
+                    gateOverlay.style.display = 'none';
+                }, 1000);
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
