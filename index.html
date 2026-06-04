@@ -16,7 +16,7 @@
     <!-- Premium Typography Registry -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@100;200;300;400;500&family=Cinzel:wght@300;400;500&family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@200;300;400;500&family=Cinzel:wght@300;400;500&family=Amiri&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -32,14 +32,12 @@
             color: var(--editorial-white);
             font-family: 'Cormorant Garamond', serif;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
         .font-editorial-serif { font-family: 'Cinzel', serif; }
         .font-sans-labels { font-family: 'Montserrat', sans-serif; }
         .font-arabic { font-family: 'Amiri', serif; }
 
-        /* WebGL ThreeJS Ambient Overlay Port */
         #webgl-canvas-container {
             position: fixed;
             top: 0;
@@ -48,14 +46,13 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.65;
+            opacity: 0.55;
         }
 
-        /* Continuous Dynamic Luxury Overlay */
         .scrolling-viewport-wrapper {
             position: relative;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(12,11,10,0.5) 0%, rgba(20,19,18,0.85) 50%, rgba(12,11,10,0.95) 100%);
+            background: linear-gradient(to bottom, rgba(12,11,10,0.4) 0%, rgba(20,19,18,0.85) 50%, rgba(12,11,10,0.98) 100%);
         }
 
         /* Interactive Audio Indicator Wave Bars */
@@ -72,30 +69,31 @@
 
         @keyframes renderWave {
             0% { transform: scaleY(1); }
-            100% { transform: scaleY(3.8); }
+            100% { transform: scaleY(3.5); }
         }
         .audio-paused-state .audio-wave-bar {
             animation-play-state: paused !important;
             transform: scaleY(0.3) !important;
         }
 
-        /* Global Layout Configurations */
-        ::-webkit-scrollbar { display: none; }
-        .text-clip-mask { overflow: hidden; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--luxury-black); }
+        ::-webkit-scrollbar-thumb { background: #292524; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-muted); }
     </style>
 </head>
-<body class="antialiased select-none overflow-hidden">
+<body class="antialiased overflow-hidden select-none">
 
-    <!-- 🪐 INTERACTIVE THREE.JS WEBGL GOLD STARS BACKDROP -->
+    <!-- WebGL Canvas Backdrop -->
     <div id="webgl-canvas-container"></div>
 
-    <!-- 🎵 CINEMATIC AUDIO LOOP EMBED -->
+    <!-- Cinematic Audio Loop -->
     <audio id="wedding-symphony" loop preload="auto">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
     </audio>
 
-    <!-- 🚪 LUXURY INTERACTIVE ENTRY CURTAIN INTERFACE -->
-    <div id="loading-curtain" class="fixed inset-0 bg-[#0c0b0a] z-50 flex flex-col items-center justify-between py-20 px-6">
+    <!-- Entry Curtain Interface -->
+    <div id="loading-curtain" class="fixed inset-0 bg-[#0c0b0a] z-50 flex flex-col items-center justify-between py-20 px-6 unified-scroller-lock">
         <div id="curtain-header" class="text-center pt-8 opacity-0">
             <span class="font-sans-labels text-[9px] tracking-[0.6em] text-stone-500 uppercase block mb-3">The Digital Portal of</span>
             <h1 class="font-editorial-serif text-xl sm:text-2xl text-[#dfba73] tracking-[0.35em] font-light">SHAHZAD & FARHA</h1>
@@ -107,14 +105,11 @@
                 <div class="w-8 h-[0.5px] bg-[#dfba73]/40 mx-auto"></div>
             </div>
             
-            <!-- Luxury Dynamic Structural Button Expansion Frame -->
             <button onclick="igniteCinematicSystem()" class="group relative px-16 py-6 rounded-none overflow-hidden transition-all duration-500 bg-transparent">
-                <!-- Border Layout Geometry Lines -->
                 <span class="absolute top-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
                 <span class="absolute bottom-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
                 <span class="absolute top-0 left-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
                 <span class="absolute top-0 right-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
-                
                 <span class="absolute inset-[5px] bg-[#dfba73] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] origin-left"></span>
                 <span class="relative font-sans-labels text-[10px] tracking-[0.5em] uppercase text-stone-400 group-hover:text-stone-900 transition-colors duration-500 block font-medium">
                     Enter the Invitation
@@ -127,9 +122,9 @@
         </div>
     </div>
 
-    <!-- 🔊 STICKY FLOATING HUD CUSTOM MEDIA CONTROL PANEL -->
-    <div id="hud-audio-control" class="fixed top-8 right-8 z-40 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-[-10px]">
-        <button onclick="toggleSymphonyPlaystate()" class="flex items-center gap-4 bg-stone-900/60 backdrop-blur-2xl border border-stone-800 pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-stone-900 transition-all duration-300">
+    <!-- Floating HUD Media Control -->
+    <div id="hud-audio-control" class="fixed top-6 right-6 sm:top-8 sm:right-8 z-40 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-[-10px]">
+        <button onclick="toggleSymphonyPlaystate()" class="flex items-center gap-4 bg-stone-900/80 backdrop-blur-2xl border border-stone-800 pl-4 pr-5 py-3 rounded-full shadow-2xl hover:border-[#dfba73]/40 transition-all duration-300">
             <div id="wave-visualizer" class="flex gap-[2.5px] items-center h-4 w-4 audio-paused-state">
                 <div class="audio-wave-bar"></div>
                 <div class="audio-wave-bar"></div>
@@ -140,7 +135,7 @@
         </button>
     </div>
 
-    <!-- 🪐 SECTION 1: CINEMATIC FULL SCREEN FILMIC HEADER -->
+    <!-- Section 1: Hero Viewport -->
     <section id="hero-viewport" class="relative w-full h-screen overflow-hidden flex flex-col justify-between items-center text-center px-4 z-10">
         <div class="pt-28 z-10 hero-stagger-node">
             <div class="font-arabic text-4xl text-[#dfba73]/90 tracking-wide mb-4">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
@@ -163,14 +158,14 @@
         </div>
     </section>
 
-    <!-- 🌌 CORE EDITORIAL SCROLL VIEWPORT WRAPPER -->
+    <!-- Core Editorial Scroll Viewport Wrapper -->
     <div class="scrolling-viewport-wrapper w-full">
 
-        <!-- 🕯️ SECTION 2: HOST INVOCATIONS & EPHEMERAL BRANDING -->
+        <!-- Section 2: Host Invocations -->
         <section class="max-w-4xl mx-auto px-6 py-40 sm:py-56 text-center space-y-20 relative z-20">
             <div class="gsap-reveal-block space-y-6">
                 <span class="font-sans-labels text-[10px] tracking-[0.45em] text-[#dfba73] uppercase font-medium block">Under the Divine Blessings of Allah</span>
-                <p class="text-2xl sm:text-3xl text-stone-300 max-w-2xl mx-auto font-light italic leading-relaxed font-serif">
+                <p class="text-2xl sm:text-3xl text-stone-300 max-w-2xl mx-auto font-light italic leading-relaxed">
                     We request the honor of your esteemed presence to grace the auspicious marriage ceremony of our son
                 </p>
             </div>
@@ -196,11 +191,9 @@
             </div>
         </section>
 
-        <!-- 👑 SECTION 3: THE COUPLING HERITAGE SECTION -->
+        <!-- Section 3: Coupling Heritage -->
         <section class="max-w-5xl mx-auto px-6 py-32 border-t border-stone-900">
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
-                
-                <!-- Groom Info Block -->
                 <div class="lg:col-span-2 text-center lg:text-right space-y-5 gsap-profile-left">
                     <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Groom</span>
                     <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">SHAHZAD</h2>
@@ -211,12 +204,10 @@
                     </p>
                 </div>
 
-                <!-- Connector layout asset -->
                 <div class="lg:col-span-1 text-center py-4 lg:py-0 gsap-reveal-block">
                     <span class="font-editorial-serif text-2xl text-[#dfba73]/40 italic block font-light">With</span>
                 </div>
 
-                <!-- Bride Info Block -->
                 <div class="lg:col-span-2 text-center lg:text-left space-y-5 gsap-profile-right">
                     <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Bride</span>
                     <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">FARHA</h2>
@@ -226,35 +217,39 @@
                         & Late Syed Mohammed & Umaiba Beevi
                     </p>
                 </div>
-
             </div>
         </section>
 
-        <!-- ⏱️ SECTION 4: HOROLOGIC SCHEDULING & LOCATION PORTALS -->
+        <!-- Section 4: Scheduling & Location Portals -->
         <section class="max-w-4xl mx-auto px-6 py-40 text-center space-y-24">
             <div class="gsap-reveal-block text-center space-y-3">
                 <span class="font-sans-labels text-[9.5px] tracking-[0.45em] text-stone-500 uppercase block">The Rendezvous</span>
                 <h2 class="font-editorial-serif text-3xl sm:text-4xl font-light tracking-widest text-white">TIME & DESTINATION</h2>
             </div>
 
-            <!-- Luxury Matrix Information Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
-                
-                <!-- Date Hub Layout Card -->
-                <div class="gsap-card-element bg-stone-900/40 border border-stone-900 p-12 space-y-8 backdrop-blur-md rounded-none text-center">
-                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">Date & Schedule</span>
-                    <div class="space-y-2">
-                        <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Saturday, 11 July 2026</h4>
-                        <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">1448 Muharram 26</p>
+                <!-- Date Card -->
+                <div class="gsap-card-element bg-stone-900/20 border border-stone-900 p-12 space-y-8 backdrop-blur-md text-center flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">Date & Schedule</span>
+                        <div class="space-y-2">
+                            <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Saturday, 11 July 2026</h4>
+                            <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">1448 Muharram 26</p>
+                        </div>
                     </div>
                     <div class="w-8 h-[0.5px] bg-stone-800 mx-auto"></div>
-                    <p class="font-sans-labels text-[11px] tracking-[0.25em] text-stone-200 uppercase font-medium bg-stone-900/80 py-3 rounded-none border border-stone-800">
+                    <p class="font-sans-labels text-[11px] tracking-[0.25em] text-stone-200 uppercase font-medium bg-stone-900/80 py-3 border border-stone-800">
                         11:00 AM — 2:00 PM
                     </p>
+                    <div class="pt-4">
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Shahzad+and+Farha&dates=20260711T110000/20260711T140000&details=Under+the+Divine+Blessings+of+Allah,+you+are+cordially+invited.&location=Kalarikkal+Venue,+Kuzhalmannam,+Palakkad" target="_blank" class="inline-block font-sans-labels text-[8.5px] tracking-[0.2em] text-stone-400 uppercase hover:text-[#dfba73] transition-colors duration-300">
+                            + Add to Calendar
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Location Hub Layout Card -->
-                <div class="gsap-card-element bg-stone-900/40 border border-stone-900 p-12 space-y-8 backdrop-blur-md rounded-none text-center flex flex-col justify-between">
+                <!-- Location Card -->
+                <div class="gsap-card-element bg-stone-900/20 border border-stone-900 p-12 space-y-8 backdrop-blur-md text-center flex flex-col justify-between">
                     <div class="space-y-6">
                         <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">The Destination</span>
                         <div class="space-y-2">
@@ -268,10 +263,9 @@
                         </a>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Precision Digital Realtime Matrix Countdown Module -->
+            <!-- Countdown Module -->
             <div class="gsap-reveal-block max-w-xl mx-auto pt-16 border-t border-stone-900">
                 <span class="font-sans-labels text-[9px] tracking-[0.4em] text-stone-500 uppercase block mb-10">Approaching The Blessed Moment</span>
                 <div id="live-countdown-clock" class="grid grid-cols-4 gap-4 font-editorial-serif text-3xl sm:text-5xl text-white font-light">
@@ -283,8 +277,39 @@
             </div>
         </section>
 
-        <!-- 🏛️ SECTION 5: MASTER CLOSING PORTAL MATRICES -->
-        <footer class="w-full text-center py-24 border-t border-stone-900 relative z-20 bg-[#0c0b0a]/80">
+        <!-- Premium RSVP Micro-Portal Section -->
+        <section class="max-w-xl mx-auto px-6 py-20 text-center gsap-reveal-block border-t border-stone-900">
+            <span class="font-sans-labels text-[9px] tracking-[0.45em] text-[#dfba73] uppercase font-medium block mb-4">Honor Us With Your Presence</span>
+            <h3 class="font-editorial-serif text-2xl text-white tracking-widest font-light mb-8">DIGITAL RSVP</h3>
+            <form id="rsvp-form" class="space-y-6 text-left" onsubmit="handleRSVPSubmit(event)">
+                <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
+                    <input type="text" id="rsvp-name" required placeholder="Your Name" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-white placeholder-stone-600 focus:outline-none uppercase">
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
+                        <select id="rsvp-guests" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-stone-400 focus:outline-none appearance-none cursor-pointer">
+                            <option value="1" class="bg-stone-950 text-white">1 Guest</option>
+                            <option value="2" class="bg-stone-950 text-white">2 Guests</option>
+                            <option value="3" class="bg-stone-950 text-white">3 Guests</option>
+                            <option value="4" class="bg-stone-950 text-white">4+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
+                        <select id="rsvp-status" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-stone-400 focus:outline-none appearance-none cursor-pointer">
+                            <option value="attending" class="bg-stone-950 text-white">Joyfully Attending</option>
+                            <option value="declining" class="bg-stone-950 text-white">Regretfully Declining</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-4 border border-stone-800 hover:border-[#dfba73] text-[9px] uppercase font-sans-labels tracking-[0.4em] text-stone-400 hover:text-stone-900 hover:bg-[#dfba73] transition-all duration-500 ease-out">
+                    Confirm Attendance
+                </button>
+            </form>
+            <div id="rsvp-ack" class="hidden text-xs font-sans-labels text-[#dfba73] tracking-widest mt-4 uppercase animate-pulse">Thank you. Your response has been registered.</div>
+        </section>
+
+        <!-- Master Closing Footer -->
+        <footer class="w-full text-center py-24 border-t border-stone-900 relative z-20 bg-[#0c0b0a]/90">
             <div class="space-y-4 gsap-reveal-block">
                 <p class="font-sans-labels text-[10px] tracking-[0.4em] text-stone-500 uppercase">
                     With Kindest Compliments From <span class="text-white font-medium">The Moopan Family</span>
@@ -295,52 +320,51 @@
 
     </div>
 
-    <!-- UI Execution Lifecyle Automation Scripts -->
+    <!-- UI Execution Lifecycle Automation Scripts -->
     <script>
         const weddingTimestamp = new Date("2026-07-11T11:00:00").getTime();
         const loopAudioContext = document.getElementById('wedding-symphony');
         const visualizerDockElement = document.getElementById('wave-visualizer');
 
         let threeScene, threeCamera, threeRenderer, stardustSystem;
+        let trackingX = 0, trackingY = 0, currentTargetX = 0, currentTargetY = 0;
 
-        // Initialize WebGL ThreeJS Ambient Starfield Architecture Engine
         function initWebGLStardustCanvas() {
             const container = document.getElementById('webgl-canvas-container');
             threeScene = new THREE.Scene();
             
-            threeCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-            threeCamera.position.z = 100;
+            threeCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            threeCamera.position.z = 120;
 
-            threeRenderer = new THREE.WebGLRenderer({ alpha: true, powerPreference: "high-performance" });
+            threeRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
             threeRenderer.setSize(window.innerWidth, window.innerHeight);
             threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(threeRenderer.domElement);
 
             const geometricalStars = new THREE.BufferGeometry();
-            const starsCount = window.innerWidth < 768 ? 1200 : 2500;
+            const isMobile = window.innerWidth < 768;
+            const starsCount = isMobile ? 800 : 2000;
             const absolutePositions = new Float32Array(starsCount * 3);
 
             for(let i=0; i<starsCount*3; i++) {
-                absolutePositions[i] = (Math.random() - 0.5) * 250;
+                absolutePositions[i] = (Math.random() - 0.5) * 300;
             }
 
             geometricalStars.setAttribute('position', new THREE.BufferAttribute(absolutePositions, 3));
 
-            // Luxury Muted Gold Stardust Textured Particle System Configs
             const materialMap = new THREE.PointsMaterial({
-                size: 0.85,
+                size: isMobile ? 1.1 : 0.85,
                 color: 0xdfba73,
                 transparent: true,
-                opacity: 0.8,
+                opacity: 0.7,
                 blending: THREE.AdditiveBlending
             });
 
             stardustSystem = new THREE.Points(geometricalStars, materialMap);
             threeScene.add(stardustSystem);
 
-            // Responsive Window Scaling Listeners
-            window.addEventListener('resize', onViewportTransformResize, false);
-            document.addEventListener('mousemove', onInterativeCursorMotion, false);
+            window.addEventListener('resize', onViewportTransformResize, { passive: true });
+            document.addEventListener('mousemove', onInteractiveCursorMotion, { passive: true });
 
             renderThreeJSAudioLoop();
         }
@@ -351,97 +375,94 @@
             threeRenderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // Slight Interactive Cursor Drift
-        let trackingX = 0, trackingY = 0;
-        function onInterativeCursorMotion(event) {
-            trackingX = (event.clientX - window.innerWidth / 2) * 0.005;
-            trackingY = (event.clientY - window.innerHeight / 2) * 0.005;
+        function onInteractiveCursorMotion(event) {
+            currentTargetX = (event.clientX - window.innerWidth / 2) * 0.015;
+            currentTargetY = (event.clientY - window.innerHeight / 2) * 0.015;
         }
 
         function renderThreeJSAudioLoop() {
             requestAnimationFrame(renderThreeJSAudioLoop);
             
-            stardustSystem.rotation.y += 0.0008;
-            stardustSystem.rotation.x += 0.0003;
+            stardustSystem.rotation.y += 0.0004;
+            stardustSystem.rotation.x += 0.0001;
 
-            // Follow scrolling positioning metrics inside the 3D space
-            const currentScrollDistance = window.scrollY;
-            stardustSystem.position.y = currentScrollDistance * 0.03;
-
-            // Interpolated drift
-            stardustSystem.position.x += (trackingX - stardustSystem.position.x) * 0.05;
+            // Fluid High-Performance LERP Physics Mechanics
+            trackingX += (currentTargetX - trackingX) * 0.04;
+            trackingY += (currentTargetY - trackingY) * 0.04;
+            
+            stardustSystem.position.x = trackingX;
+            stardustSystem.position.y = -trackingY + (window.scrollY * 0.025);
 
             threeRenderer.render(threeScene, threeCamera);
         }
 
-        // Register ScrollTrigger Engine Plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Preloading System Screen Orchestration
         window.addEventListener('DOMContentLoaded', () => {
             initWebGLStardustCanvas();
             
             const tl = gsap.timeline();
-            tl.to("#curtain-header", { opacity: 1, y: 0, duration: 1.4, delay: 0.4, ease: "power3.out" })
-              .to("#curtain-interactive-node", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }, "-=0.9")
-              .to("#curtain-footer", { opacity: 1, duration: 1 }, "-=0.6");
+            tl.to("#curtain-header", { opacity: 1, y: 0, duration: 1.2, delay: 0.3, ease: "power2.out" })
+              .to("#curtain-interactive-node", { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }, "-=0.8")
+              .to("#curtain-footer", { opacity: 1, duration: 0.8 }, "-=0.5");
         });
 
-        // Activation Execution Functionality Trigger
         function igniteCinematicSystem() {
+            // Unlock scrolling gracefully across all engine layouts simultaneously
             document.body.classList.remove('overflow-hidden');
 
             const entryTimeline = gsap.timeline({
                 onComplete: () => {
-                    document.getElementById('loading-curtain').style.display = 'none';
+                    document.getElementById('loading-curtain').remove();
                 }
             });
 
             entryTimeline.to("#loading-curtain", {
                 yPercent: -100,
-                duration: 1.8,
+                duration: 1.4,
                 ease: "power4.inOut"
             })
             .to("#hud-audio-control", {
                 opacity: 1,
                 y: 0,
                 pointerEvents: "auto",
-                duration: 1.2
-            }, "-=0.7")
+                duration: 1.0
+            }, "-=0.5")
             .from(".hero-stagger-node", {
                 opacity: 0,
-                y: 40,
-                stagger: 0.18,
-                duration: 1.5,
+                y: 30,
+                stagger: 0.15,
+                duration: 1.2,
                 ease: "power3.out"
-            }, "-=1.3")
+            }, "-=1.0")
             .from(".hero-title-node", {
                 opacity: 0,
-                letterSpacing: "0.45em",
-                duration: 2.2,
+                letterSpacing: "0.4em",
+                duration: 1.8,
                 ease: "power2.out"
-            }, "-=1.6");
+            }, "-=1.2");
 
-            // Exponential Ambient Audio Fade-In Logic Loop
             loopAudioContext.volume = 0;
             loopAudioContext.play().then(() => {
                 visualizerDockElement.classList.remove('audio-paused-state');
-                gsap.to(loopAudioContext, { volume: 0.4, duration: 3.5, ease: "none" });
-            }).catch(err => console.log("System initialized manually via HUD action maps."));
+                gsap.to(loopAudioContext, { volume: 0.35, duration: 3.0 });
+            }).catch(() => {
+                // Ensure visualizer matches exact audio context state if blocked by default browser flags
+                visualizerDockElement.classList.add('audio-paused-state');
+            });
 
             initGsapSpatialAnimations();
         }
 
-        // Sound Engine Control Handlers
         function toggleSymphonyPlaystate() {
             if (loopAudioContext.paused) {
                 loopAudioContext.play();
                 visualizerDockElement.classList.remove('audio-paused-state');
-                gsap.to(loopAudioContext, { volume: 0.4, duration: 1.5 });
+                gsap.to(loopAudioContext, { volume: 0.35, duration: 1.0 });
             } else {
                 gsap.to(loopAudioContext, {
                     volume: 0,
-                    duration: 0.8,
+                    duration: 0.5,
                     onComplete: () => {
                         loopAudioContext.pause();
                         visualizerDockElement.classList.add('audio-paused-state');
@@ -450,49 +471,53 @@
             }
         }
 
-        // Continuous Fluid Display Trigger Maps
         function initGsapSpatialAnimations() {
             gsap.utils.toArray(".gsap-reveal-block").forEach(element => {
                 gsap.from(element, {
                     scrollTrigger: {
                         trigger: element,
-                        start: "top 90%",
+                        start: "top 92%",
                         toggleActions: "play none none none"
                     },
                     opacity: 0,
-                    y: 45,
-                    duration: 1.5,
-                    ease: "power3.out"
+                    y: 35,
+                    duration: 1.2,
+                    ease: "power2.out"
                 });
             });
 
             gsap.from(".gsap-profile-left", {
-                scrollTrigger: { trigger: ".gsap-profile-left", start: "top 85%" },
+                scrollTrigger: { trigger: ".gsap-profile-left", start: "top 88%" },
                 opacity: 0,
-                x: -70,
-                duration: 1.8,
-                ease: "power4.out"
+                x: -50,
+                duration: 1.4,
+                ease: "power3.out"
             });
 
             gsap.from(".gsap-profile-right", {
-                scrollTrigger: { trigger: ".gsap-profile-right", start: "top 85%" },
+                scrollTrigger: { trigger: ".gsap-profile-right", start: "top 88%" },
                 opacity: 0,
-                x: 70,
-                duration: 1.8,
-                ease: "power4.out"
+                x: 50,
+                duration: 1.4,
+                ease: "power3.out"
             });
 
             gsap.from(".gsap-card-element", {
-                scrollTrigger: { trigger: ".gsap-card-element", start: "top 85%" },
+                scrollTrigger: { trigger: ".gsap-card-element", start: "top 88%" },
                 opacity: 0,
-                y: 60,
-                stagger: 0.3,
-                duration: 1.5,
-                ease: "power3.out"
+                y: 40,
+                stagger: 0.2,
+                duration: 1.2,
+                ease: "power2.out"
             });
         }
 
-        // Countdown Framework Realtime Loops
+        function handleRSVPSubmit(event) {
+            event.preventDefault();
+            document.getElementById('rsvp-form').classList.add('hidden');
+            document.getElementById('rsvp-ack').classList.remove('hidden');
+        }
+
         setInterval(function() {
             const systemTime = new Date().getTime();
             const deltaDistance = weddingTimestamp - systemTime;
