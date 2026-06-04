@@ -1,435 +1,512 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Shahzad & Farha</title>
+    <title>The Wedding of Shahzad & Farha</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Core Tailwind UI Architecture -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Premium Motion Engineering Framework Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <!-- Google Fonts -->
+    <!-- Premium Typography Registry -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@100;200;300;400;500&family=Cinzel:wght@300;400;500&family=Amiri&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-gold-light: #fdfaf4; 
-            --accent-gold: #c3a463;
-            --text-dark: #2a261f;
-            --text-muted: #6e6757;
-            --bg-card: #fffdfa;
-            --border-gold: rgba(195, 164, 99, 0.4);
-            --card-shadow: 0 30px 70px -10px rgba(165, 135, 85, 0.25);
+            --luxury-black: #0c0b0a;
+            --canvas-grey: #141312;
+            --gold-accent: #dfba73;
+            --gold-muted: #bda373;
+            --editorial-white: #f5f4f0;
         }
 
         body {
-            background-color: var(--bg-gold-light);
-            background-image: 
-                radial-gradient(circle at center, transparent 0%, rgba(240, 230, 215, 0.3) 100%),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='1%25'%3E%3Cstop offset='0%25' stop-color='%23d0b070' stop-opacity='0.35'/%3E%3Cstop offset='100%25' stop-color='%23d0b070' stop-opacity='0'/%3E%3C/radialGradient%3E%3Ccircle cx='10' cy='20' r='1.2' fill='url(%23g)'/%3E%3Ccircle cx='65' cy='15' r='1' fill='url(%23g)'/%3E%3Ccircle cx='40' cy='75' r='1.5' fill='url(%23g)'/%3E%3Ccircle cx='85' cy='60' r='1.2' fill='url(%23g)'/%3E%3C/svg%3E");
+            background-color: var(--luxury-black);
+            color: var(--editorial-white);
             font-family: 'Cormorant Garamond', serif;
-            color: var(--text-dark);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        .invitation-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-gold);
-            box-shadow: var(--card-shadow);
-            transition: all 0.8s ease;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath d='M1 3h1v1H1V3zm2-2h1v1H3V1z' fill='%23bfa15f' fill-opacity='0.025'%3E%3C/path%3E%3C/svg%3E");
-        }
-
-        .font-arabic { font-family: 'Amiri', serif; }
-        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-editorial-serif { font-family: 'Cinzel', serif; }
         .font-sans-labels { font-family: 'Montserrat', sans-serif; }
+        .font-arabic { font-family: 'Amiri', serif; }
 
-        .floating-petal {
+        /* WebGL ThreeJS Ambient Overlay Port */
+        #webgl-canvas-container {
             position: fixed;
-            pointer-events: none;
-            opacity: 0.25;
-            z-index: 1;
-            animation: driftUp 16s infinite linear;
-        }
-
-        @keyframes driftUp {
-            0% { transform: translateY(105vh) translateX(0) rotate(0deg); }
-            50% { transform: translateY(50vh) translateX(40px) rotate(180deg); }
-            100% { transform: translateY(-10vh) translateX(-10px) rotate(360deg); }
-        }
-
-        /* ✨ UPGRADED VIP BORDER: Intricate Pressed Letterpress Finish */
-        .luxury-frame {
-            border: 1px solid var(--border-gold);
-            border-radius: 160px 160px 4px 4px;
-            position: relative;
-            box-shadow: inset 0 0 0 1px rgba(195, 164, 99, 0.15), 0 0 0 4px rgba(255,253,250,1), 0 0 0 5px rgba(195,164,99,0.25);
-        }
-        
-        .luxury-frame::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 0.5px solid rgba(195, 164, 99, 0.3);
-            border-radius: 152px 152px 2px 2px;
-            pointer-events: none;
-        }
-
-        /* 👑 METALLIC FOIL COMPONENT GRADIENTS */
-        .gold-foil-gradient {
-            background: linear-gradient(135deg, #9e7528 0%, #dfba73 50%, #c59b4e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-foil-button {
-            background: linear-gradient(135deg, #a8823d 0%, #dfba73 50%, #bc9347 100%);
-            box-shadow: 0 4px 15px rgba(165, 135, 85, 0.2);
-        }
-
-        /* Envelope Architecture */
-        .envelope-viewport {
-            perspective: 1500px;
-            position: relative;
-        }
-
-        .envelope-box {
-            position: relative;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 480px;
-            aspect-ratio: 1.4 / 1;
-            background: #e6dac0;
-            box-shadow: 0 20px 50px rgba(40, 30, 15, 0.15);
-            transform-style: preserve-3d;
-            border-radius: 6px;
-        }
-
-        .envelope-flap-top {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 50%;
-            background: #ded2b6;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            transform-origin: top center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 5;
-            border-radius: 6px 6px 0 0;
-        }
-
-        .envelope-pocket-front {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 60%;
-            background: #e0d4b5;
-            clip-path: polygon(0 20%, 50% 70%, 100% 20%, 100% 100%, 0 100%);
-            z-index: 4;
-            border-radius: 0 0 6px 6px;
-        }
-
-        .envelope-preview-card {
-            position: absolute;
-            bottom: 5%; left: 5%; width: 90%; height: 85%;
-            background: #ffffff;
-            border: 1px solid rgba(195, 164, 99, 0.2);
-            border-radius: 4px;
-            z-index: 2;
-            transform: translateY(5%) scale(0.96);
-            opacity: 0.8;
-            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
-        }
-
-        /* Animation Interaction Stages */
-        .stage-open-flap .envelope-flap-top {
-            transform: rotateX(180deg);
+            height: 100%;
             z-index: 1;
+            pointer-events: none;
+            opacity: 0.65;
         }
 
-        .stage-slide-card .envelope-preview-card {
-            transform: translateY(-75%) scale(1.02);
-            opacity: 1;
+        /* Continuous Dynamic Luxury Overlay */
+        .scrolling-viewport-wrapper {
+            position: relative;
             z-index: 10;
-            box-shadow: 0 20px 40px rgba(40,30,15,0.15);
+            background: linear-gradient(to bottom, rgba(12,11,10,0.5) 0%, rgba(20,19,18,0.85) 50%, rgba(12,11,10,0.95) 100%);
         }
 
-        @keyframes dynamicBounce {
-            0%, 100% { transform: translate(-50%, -10px); }
-            50% { transform: translate(-50%, 2px); }
+        /* Interactive Audio Indicator Wave Bars */
+        .audio-wave-bar {
+            width: 2px;
+            height: 4px;
+            background-color: var(--gold-accent);
+            transform-origin: bottom;
+            animation: renderWave 1.2s infinite ease-in-out alternate;
         }
-        .cta-bounce {
-            animation: dynamicBounce 2s infinite ease-in-out;
+        .audio-wave-bar:nth-child(2) { animation-delay: 0.15s; height: 9px; }
+        .audio-wave-bar:nth-child(3) { animation-delay: 0.35s; height: 14px; }
+        .audio-wave-bar:nth-child(4) { animation-delay: 0.5s; height: 7px; }
+
+        @keyframes renderWave {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(3.8); }
+        }
+        .audio-paused-state .audio-wave-bar {
+            animation-play-state: paused !important;
+            transform: scaleY(0.3) !important;
         }
 
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Confetti Particle Sheet */
-        .luxury-dust {
-            position: fixed; top: -10px; z-index: 99; pointer-events: none;
-            animation: fall linear forwards;
-        }
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); }
-        }
+        /* Global Layout Configurations */
+        ::-webkit-scrollbar { display: none; }
+        .text-clip-mask { overflow: hidden; }
     </style>
 </head>
-<body class="relative min-h-screen overflow-x-hidden flex flex-col items-center justify-center px-4 py-8 sm:py-16 selection:bg-amber-50 no-scrollbar">
+<body class="antialiased select-none overflow-hidden">
 
-    <!-- 🎧 BACKGROUND AUDIO TRACK -->
-    <audio id="ambient-audio" loop preload="auto">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
+    <!-- 🪐 INTERACTIVE THREE.JS WEBGL GOLD STARS BACKDROP -->
+    <div id="webgl-canvas-container"></div>
+
+    <!-- 🎵 CINEMATIC AUDIO LOOP EMBED -->
+    <audio id="wedding-symphony" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
     </audio>
 
-    <!-- 🔊 AUDIO CONTROL HUD -->
-    <button id="audio-toggle" onclick="toggleAudio()" class="fixed top-4 right-4 z-50 bg-white/80 border border-stone-200 text-[9px] font-sans-labels tracking-widest text-stone-500 px-3 py-1.5 rounded-full shadow-xs uppercase opacity-0 transition-opacity duration-500">
-        🔊 Mute
-    </button>
+    <!-- 🚪 LUXURY INTERACTIVE ENTRY CURTAIN INTERFACE -->
+    <div id="loading-curtain" class="fixed inset-0 bg-[#0c0b0a] z-50 flex flex-col items-center justify-between py-20 px-6">
+        <div id="curtain-header" class="text-center pt-8 opacity-0">
+            <span class="font-sans-labels text-[9px] tracking-[0.6em] text-stone-500 uppercase block mb-3">The Digital Portal of</span>
+            <h1 class="font-editorial-serif text-xl sm:text-2xl text-[#dfba73] tracking-[0.35em] font-light">SHAHZAD & FARHA</h1>
+        </div>
 
-    <!-- ✉️ INTRODUCTORY CINEMATIC ENVELOPE GATEWAY -->
-    <div id="envelope-gate" class="fixed inset-0 bg-[#f7f3e8] z-50 flex items-center justify-center p-4 transition-all duration-1000 ease-in-out">
-        <div class="envelope-viewport w-full max-w-md flex justify-center items-center">
-            
-            <div id="main-envelope" class="envelope-box">
-                <!-- Top Flap -->
-                <div class="envelope-flap-top"></div>
-                
-                <!-- Pocket Layer -->
-                <div class="envelope-pocket-front"></div>
-
-                <!-- Preview Mini Card inside -->
-                <div class="envelope-preview-card p-6 flex flex-col items-center justify-center text-center">
-                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-amber-800/70 uppercase block mb-1">Wedding Invitation</span>
-                    <h2 class="font-serif text-xl text-stone-800 tracking-wide">Shahzad & Farha</h2>
-                    <div class="w-8 h-[0.5px] bg-amber-950/20 my-2"></div>
-                    <span class="font-sans-labels text-[8px] tracking-widest text-stone-400 uppercase">July 11, 2026</span>
-                </div>
-
-                <!-- 🏷️ CALL TO ACTION -->
-                <div id="press-here-indicator" class="absolute top-[12%] left-1/2 cta-bounce z-30 text-center pointer-events-none flex flex-col items-center w-full">
-                    <span class="font-sans-labels text-[10px] uppercase tracking-[0.3em] text-amber-900 font-medium bg-white/90 px-3 py-1.5 rounded-full border border-amber-500/20 shadow-xs">
-                        Open Invitation
-                    </span>
-                    <span class="text-amber-800 text-lg mt-0.5 animate-pulse">↓</span>
-                </div>
-
-                <!-- Luxury Wax Seal Button Base -->
-                <button id="seal-btn" onclick="executeCinematicOpen()" class="absolute top-[44%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 w-16 h-16 bg-[#962222] rounded-full shadow-2xl flex items-center justify-center border-2 border-[#dfc183] transition-all duration-300 hover:scale-105 active:scale-95 group">
-                    <div class="absolute inset-1 border border-[#dfc183]/30 rounded-full animate-spin-slow opacity-50"></div>
-                    <span class="font-script text-2xl text-[#dfc183] select-none transform group-hover:rotate-12 transition-transform">S</span>
-                </button>
+        <div id="curtain-interactive-node" class="text-center space-y-10 opacity-0">
+            <div class="space-y-2">
+                <p class="font-sans-labels text-[10px] tracking-[0.3em] text-stone-400 uppercase">The Royal Invitation</p>
+                <div class="w-8 h-[0.5px] bg-[#dfba73]/40 mx-auto"></div>
             </div>
+            
+            <!-- Luxury Dynamic Structural Button Expansion Frame -->
+            <button onclick="igniteCinematicSystem()" class="group relative px-16 py-6 rounded-none overflow-hidden transition-all duration-500 bg-transparent">
+                <!-- Border Layout Geometry Lines -->
+                <span class="absolute top-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
+                <span class="absolute bottom-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
+                <span class="absolute top-0 left-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
+                <span class="absolute top-0 right-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
+                
+                <span class="absolute inset-[5px] bg-[#dfba73] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] origin-left"></span>
+                <span class="relative font-sans-labels text-[10px] tracking-[0.5em] uppercase text-stone-400 group-hover:text-stone-900 transition-colors duration-500 block font-medium">
+                    Enter the Invitation
+                </span>
+            </button>
+        </div>
 
+        <div id="curtain-footer" class="text-center opacity-0">
+            <span class="font-sans-labels text-[8px] tracking-[0.25em] text-stone-600 uppercase">© 2026 The Moopan Wedding Portfolio</span>
         </div>
     </div>
 
-    <!-- Background Floral Accents -->
-    <div class="fixed top-0 left-0 w-48 sm:w-80 h-48 sm:h-80 opacity-30 pointer-events-none z-0 bg-contain bg-no-repeat bg-left-top" style="background-image: url('https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=400&auto=format&fit=crop'); filter: sepia(0.2) contrast(1.05);"></div>
-    <div class="fixed bottom-0 right-0 w-48 sm:w-80 h-48 sm:h-80 opacity-30 pointer-events-none z-0 bg-contain bg-no-repeat bg-right-bottom" style="background-image: url('https://images.unsplash.com/photo-1533616688419-b7a585564566?q=80&w=400&auto=format&fit=crop'); filter: sepia(0.2) contrast(1.05); transform: rotate(180deg);"></div>
+    <!-- 🔊 STICKY FLOATING HUD CUSTOM MEDIA CONTROL PANEL -->
+    <div id="hud-audio-control" class="fixed top-8 right-8 z-40 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-[-10px]">
+        <button onclick="toggleSymphonyPlaystate()" class="flex items-center gap-4 bg-stone-900/60 backdrop-blur-2xl border border-stone-800 pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-stone-900 transition-all duration-300">
+            <div id="wave-visualizer" class="flex gap-[2.5px] items-center h-4 w-4 audio-paused-state">
+                <div class="audio-wave-bar"></div>
+                <div class="audio-wave-bar"></div>
+                <div class="audio-wave-bar"></div>
+                <div class="audio-wave-bar"></div>
+            </div>
+            <span class="font-sans-labels text-[8.5px] tracking-[0.3em] uppercase text-[#dfba73] font-medium">Sound Track</span>
+        </button>
+    </div>
 
-    <!-- Ambient Particles -->
-    <div class="floating-petal text-amber-600 text-xl" style="left: 8%; animation-delay: 0s; animation-duration: 14s;">🍃</div>
-    <div class="floating-petal text-amber-700/30 text-lg" style="left: 28%; animation-delay: 3s; animation-duration: 22s;">✨</div>
-    <div class="floating-petal text-amber-600 text-2xl" style="left: 60%; animation-delay: 1s; animation-duration: 18s;">🍃</div>
-    <div class="floating-petal text-amber-700/30 text-base" style="left: 85%; animation-delay: 6s; animation-duration: 13s;">✨</div>
+    <!-- 🪐 SECTION 1: CINEMATIC FULL SCREEN FILMIC HEADER -->
+    <section id="hero-viewport" class="relative w-full h-screen overflow-hidden flex flex-col justify-between items-center text-center px-4 z-10">
+        <div class="pt-28 z-10 hero-stagger-node">
+            <div class="font-arabic text-4xl text-[#dfba73]/90 tracking-wide mb-4">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+            <span class="font-sans-labels text-[9.5px] tracking-[0.55em] uppercase text-stone-400 block">The Eternal Union</span>
+        </div>
 
-    <!-- ✉️ MAIN INVITATION CARD -->
-    <div id="production-card" class="invitation-card w-full max-w-xl p-4 sm:p-5 rounded-xs z-10 opacity-0 transform translate-y-12 transition-all duration-1000 ease-out pointer-events-none">
-        <div class="luxury-frame pt-24 pb-14 px-5 sm:px-12 text-center bg-gradient-to-b from-white/10 via-white/90 to-white/10">
-            
-            <!-- Bismillah Header -->
-            <div class="pb-6 mb-4">
-                <div class="font-arabic text-3xl sm:text-4xl tracking-wide text-amber-900/90 mb-3 block">
-                    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-                </div>
-                <p class="font-sans-labels text-[9px] tracking-[0.18em] text-stone-400 font-light lowercase italic">
-                    "In the name of Allah, the most beneficent and merciful"
+        <div class="my-auto space-y-8 z-10">
+            <h2 class="font-editorial-serif text-5xl sm:text-7xl lg:text-8xl text-white tracking-[0.22em] font-light leading-tight hero-title-node">
+                SHAHZAD <br class="sm:hidden"><span class="text-lg sm:text-xl font-sans-labels font-light text-[#dfba73] tracking-[0.4em] block sm:inline my-6 sm:my-0 sm:mx-8">&</span> FARHA
+            </h2>
+            <div class="w-16 h-[0.5px] bg-[#dfba73]/40 mx-auto hero-stagger-node"></div>
+            <span class="font-sans-labels text-[11px] tracking-[0.4em] uppercase text-stone-300 block hero-stagger-node">July 11, 2026</span>
+        </div>
+
+        <div class="pb-24 z-10 hero-stagger-node">
+            <div class="text-[#dfba73]/50 font-sans-labels text-[9px] tracking-[0.3em] uppercase animate-pulse">
+                Scroll Down To Unveil
+            </div>
+            <div class="text-[#dfba73]/30 text-lg mt-2">↓</div>
+        </div>
+    </section>
+
+    <!-- 🌌 CORE EDITORIAL SCROLL VIEWPORT WRAPPER -->
+    <div class="scrolling-viewport-wrapper w-full">
+
+        <!-- 🕯️ SECTION 2: HOST INVOCATIONS & EPHEMERAL BRANDING -->
+        <section class="max-w-4xl mx-auto px-6 py-40 sm:py-56 text-center space-y-20 relative z-20">
+            <div class="gsap-reveal-block space-y-6">
+                <span class="font-sans-labels text-[10px] tracking-[0.45em] text-[#dfba73] uppercase font-medium block">Under the Divine Blessings of Allah</span>
+                <p class="text-2xl sm:text-3xl text-stone-300 max-w-2xl mx-auto font-light italic leading-relaxed font-serif">
+                    We request the honor of your esteemed presence to grace the auspicious marriage ceremony of our son
                 </p>
             </div>
 
-            <!-- Host Family Block -->
-            <div class="space-y-1 mb-8 text-stone-800">
-                <h3 class="text-xl sm:text-2xl font-medium tracking-wide">Mr. Shahul Hameed <span class="text-base font-light text-stone-500">(Sabu Moopan)</span></h3>
-                <h3 class="text-xl sm:text-2xl font-medium tracking-wide">& Mrs. Shyna N.A</h3>
-                <p class="font-sans-labels text-[10px] tracking-widest text-stone-400 font-light pt-2 leading-relaxed">
-                    Moopan Manzil, Pazhambalacode P.O., Palakkad Dt.<br>
-                    Ph: 98475 80197, 98095 60305
-                </p>
-            </div>
+            <div class="w-[0.5px] h-28 bg-[#dfba73]/30 mx-auto gsap-reveal-block"></div>
 
-            <p class="text-base sm:text-lg text-stone-600 max-w-sm mx-auto leading-relaxed mb-8 font-light italic">
-                Cordially invite your esteemed presence with family on the auspicious occasion of the wedding of our son
-            </p>
+            <!-- Host Identity Blocks -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-center max-w-3xl mx-auto pt-4 font-editorial-serif">
+                <div class="gsap-reveal-block space-y-3">
+                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-stone-500 uppercase block mb-1">From The Family of The Groom</span>
+                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">MR. SHAHUL HAMEED</h3>
+                    <p class="text-xs font-sans-labels font-light text-[#dfba73] lowercase tracking-widest">(Sabu Moopan)</p>
+                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">& MRS. SHYNA N.A</h3>
+                    <p class="font-sans-labels text-[9.5px] tracking-widest text-stone-400 uppercase pt-2 font-light">Moopan Manzil, Pazhambalacode, Palakkad</p>
+                </div>
 
-            <!-- 🤵 GROOM BLOCK -->
-            <div class="my-6">
-                <h1 class="text-5xl sm:text-6xl font-light tracking-wide font-serif gold-foil-gradient">Shahzad</h1>
-                <div class="max-w-md mx-auto text-[10.5px] text-stone-400 font-sans-labels font-light leading-relaxed mt-4 px-2">
-                    (Grand S/o. K. Ismail Moopan [Late] & K. U. Mariyakutty [Late]<br>
-                    and N. M. Abubacker [Late] & P. B. Fathima)
+                <div class="gsap-reveal-block space-y-3 border-t md:border-t-0 md:border-l border-stone-800 pt-10 md:pt-0 md:pl-16">
+                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-stone-500 uppercase block mb-1">From The Family of The Bride</span>
+                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">MR. FIROSH USSANAR</h3>
+                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">& MRS. KHADEEJA FIROSH</h3>
+                    <p class="font-sans-labels text-[9.5px] tracking-widest text-stone-400 uppercase pt-2 font-light">"Al Busthan" Vadakkenada, Kavassery, Palakkad</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Connector -->
-            <div class="text-amber-700/50 text-4xl my-4 font-light select-none flex items-center justify-center gap-4">
-                <span class="w-12 h-[0.5px] bg-amber-900/20"></span>
-                <span class="font-script text-4xl lowercase text-amber-700">with</span>
-                <span class="w-12 h-[0.5px] bg-amber-900/20"></span>
-            </div>
-
-            <!-- 👰 BRIDE BLOCK -->
-            <div class="my-6 mb-12">
-                <h1 class="text-5xl sm:text-6xl font-light tracking-wide font-serif gold-foil-gradient">Farha</h1>
-                <div class="max-w-md mx-auto text-[10.5px] text-stone-400 font-sans-labels font-light leading-relaxed mt-4 px-2 space-y-2">
-                    <p class="text-stone-700 text-sm font-medium tracking-wide">(D/o. Mr. Firosh Ussanar & Mrs. Khadeeja Firosh)</p>
-                    <p class="text-[11px] text-stone-500">"Al Busthan" Vadakkenada, Kavassery P.O., Palakkad Dt.</p>
-                    <p class="text-[10px] pt-1 text-stone-400/90 leading-relaxed">
-                        (Grand D/o. Ussanar Sahib [Late] & Sara Umma [Late]<br>
-                        and Syed Mohammed [Late] & Umaiba Beevi)
+        <!-- 👑 SECTION 3: THE COUPLING HERITAGE SECTION -->
+        <section class="max-w-5xl mx-auto px-6 py-32 border-t border-stone-900">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
+                
+                <!-- Groom Info Block -->
+                <div class="lg:col-span-2 text-center lg:text-right space-y-5 gsap-profile-left">
+                    <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Groom</span>
+                    <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">SHAHZAD</h2>
+                    <div class="w-12 h-[1px] bg-[#dfba73]/30 ml-auto mr-auto lg:mr-0 my-4"></div>
+                    <p class="font-sans-labels text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
+                        Grandson of Late K. Ismail Moopan & Late K. U. Mariyakutty <br>
+                        & Late N. M. Abubacker & P. B. Fathima
                     </p>
                 </div>
+
+                <!-- Connector layout asset -->
+                <div class="lg:col-span-1 text-center py-4 lg:py-0 gsap-reveal-block">
+                    <span class="font-editorial-serif text-2xl text-[#dfba73]/40 italic block font-light">With</span>
+                </div>
+
+                <!-- Bride Info Block -->
+                <div class="lg:col-span-2 text-center lg:text-left space-y-5 gsap-profile-right">
+                    <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Bride</span>
+                    <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">FARHA</h2>
+                    <div class="w-12 h-[1px] bg-[#dfba73]/30 mr-auto ml-auto lg:ml-0 my-4"></div>
+                    <p class="font-sans-labels text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
+                        Granddaughter of Late Ussanar Sahib & Late Sara Umma <br>
+                        & Late Syed Mohammed & Umaiba Beevi
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ⏱️ SECTION 4: HOROLOGIC SCHEDULING & LOCATION PORTALS -->
+        <section class="max-w-4xl mx-auto px-6 py-40 text-center space-y-24">
+            <div class="gsap-reveal-block text-center space-y-3">
+                <span class="font-sans-labels text-[9.5px] tracking-[0.45em] text-stone-500 uppercase block">The Rendezvous</span>
+                <h2 class="font-editorial-serif text-3xl sm:text-4xl font-light tracking-widest text-white">TIME & DESTINATION</h2>
             </div>
 
-            <!-- ⏳ COUNTDOWN CLOCK -->
-            <div class="border-t border-b border-amber-900/10 py-5 my-8 max-w-sm mx-auto bg-stone-50/40 rounded-sm">
-                <p class="font-sans-labels text-[9px] tracking-[0.25em] text-stone-400 font-semibold uppercase mb-3">Time Remaining Unto The Holy Union</p>
-                <div id="countdown-clock" class="flex justify-center gap-6 text-amber-900 font-light text-2xl tracking-wide">
-                    <div><span id="days-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Days</span></div>
-                    <div><span id="hours-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Hours</span></div>
-                    <div><span id="minutes-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Mins</span></div>
-                    <div><span id="seconds-val" class="block font-medium tabular-nums">00</span><span class="text-[9px] uppercase font-sans-labels tracking-widest text-stone-400 font-medium">Secs</span></div>
+            <!-- Luxury Matrix Information Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
+                
+                <!-- Date Hub Layout Card -->
+                <div class="gsap-card-element bg-stone-900/40 border border-stone-900 p-12 space-y-8 backdrop-blur-md rounded-none text-center">
+                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">Date & Schedule</span>
+                    <div class="space-y-2">
+                        <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Saturday, 11 July 2026</h4>
+                        <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">1448 Muharram 26</p>
+                    </div>
+                    <div class="w-8 h-[0.5px] bg-stone-800 mx-auto"></div>
+                    <p class="font-sans-labels text-[11px] tracking-[0.25em] text-stone-200 uppercase font-medium bg-stone-900/80 py-3 rounded-none border border-stone-800">
+                        11:00 AM — 2:00 PM
+                    </p>
+                </div>
+
+                <!-- Location Hub Layout Card -->
+                <div class="gsap-card-element bg-stone-900/40 border border-stone-900 p-12 space-y-8 backdrop-blur-md rounded-none text-center flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">The Destination</span>
+                        <div class="space-y-2">
+                            <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Kalarikkal Venue</h4>
+                            <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">Kulavanmukku, Kuzhalmannam, Palakkad</p>
+                        </div>
+                    </div>
+                    <div class="pt-8">
+                        <a href="https://maps.google.com/?q=Kalarikkal+Convention+Centre+Kuzhalmannam" target="_blank" class="inline-block font-sans-labels text-[9.5px] tracking-[0.35em] text-[#dfba73] uppercase font-semibold border-b border-[#dfba73]/30 pb-2 hover:text-white hover:border-white transition-all duration-300">
+                            Launch Navigation Hub →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Precision Digital Realtime Matrix Countdown Module -->
+            <div class="gsap-reveal-block max-w-xl mx-auto pt-16 border-t border-stone-900">
+                <span class="font-sans-labels text-[9px] tracking-[0.4em] text-stone-500 uppercase block mb-10">Approaching The Blessed Moment</span>
+                <div id="live-countdown-clock" class="grid grid-cols-4 gap-4 font-editorial-serif text-3xl sm:text-5xl text-white font-light">
+                    <div><span id="days-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Days</span></div>
+                    <div><span id="hours-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Hours</span></div>
+                    <div><span id="minutes-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Mins</span></div>
+                    <div><span id="seconds-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Secs</span></div>
                 </div>
             </div>
+        </section>
 
-            <!-- 📍 EVENT VENUE DETAILS & VIP ACTION PANEL -->
-            <div class="max-w-sm mx-auto mt-8">
-                <div class="block p-6 bg-white/90 border border-amber-900/15 rounded-sm shadow-sm relative overflow-hidden">
-                    
-                    <!-- Top Ribbon Subtle Foil Element -->
-                    <div class="absolute top-0 left-0 right-0 h-[3px] gold-foil-button"></div>
-
-                    <div class="mb-5">
-                        <span class="font-sans-labels text-[9px] tracking-[0.2em] text-amber-800 font-semibold uppercase block mb-1">Date & Timing</span>
-                        <h4 class="text-xl text-stone-800 font-medium font-serif">Saturday, 11th July 2026</h4>
-                        <p class="text-stone-400 text-[11px] font-sans-labels font-light mt-0.5">(1448 Muharram 26)</p>
-                        <p class="text-amber-900/90 text-sm font-sans-labels font-semibold mt-2.5 bg-amber-50/70 inline-block px-4 py-1 rounded-full border border-amber-900/5">Between 11:00 AM to 2:00 PM</p>
-                    </div>
-
-                    <div class="text-stone-700 text-sm border-t border-stone-200/60 pt-4">
-                        <span class="font-sans-labels text-[9px] tracking-widest text-stone-400 uppercase block mb-1">Venue Destination</span>
-                        <p class="text-base font-medium text-stone-800">Kalarikkal Convention Centre</p>
-                        <p class="text-xs text-stone-500 font-sans-labels font-light mt-0.5">Kulavanmukku, Kuzhalmannam, Palakkad</p>
-                    </div>
-
-                    <!-- 👑 ASYMMETRICAL VIP BUTTON HUBS -->
-                    <div class="grid grid-cols-2 gap-2.5 mt-6 pt-2">
-                        <a href="https://maps.google.com/?q=Kalarikkal+Convention+Centre+Kuzhalmannam" target="_blank" 
-                           class="flex items-center justify-center gap-1.5 py-2.5 px-3 border border-amber-900/20 hover:border-amber-700 bg-white hover:bg-stone-50 text-stone-700 font-sans-labels text-[9.5px] tracking-widest uppercase font-medium transition-all duration-300 rounded-xs shadow-2xs">
-                           📍 Launch GPS
-                        </a>
-                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding:+Shahzad+%26+Farha&dates=20260711T053000Z/20260711T083000Z&details=You+are+cordially+invited+to+the+wedding+celebration+of+Shahzad+and+Farha.&location=Kalarikkal+Convention+Centre,+Kuzhalmannam,+Palakkad" 
-                           target="_blank" 
-                           class="flex items-center justify-center gap-1.5 py-2.5 px-3 text-white gold-foil-button font-sans-labels text-[9.5px] tracking-widest uppercase font-semibold transition-all duration-300 rounded-xs hover:brightness-105 active:scale-[0.99]">
-                           🗓️ Add Reminder
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Compliments Signoff Line -->
-            <div class="mt-12 pt-5 border-t border-stone-200/60">
-                <p class="font-sans-labels text-[10px] tracking-widest text-stone-400 uppercase font-medium">
-                    Best compliments from <span class="text-stone-600 font-semibold">Family</span>
+        <!-- 🏛️ SECTION 5: MASTER CLOSING PORTAL MATRICES -->
+        <footer class="w-full text-center py-24 border-t border-stone-900 relative z-20 bg-[#0c0b0a]/80">
+            <div class="space-y-4 gsap-reveal-block">
+                <p class="font-sans-labels text-[10px] tracking-[0.4em] text-stone-500 uppercase">
+                    With Kindest Compliments From <span class="text-white font-medium">The Moopan Family</span>
                 </p>
+                <div class="text-[12px] font-light text-stone-400 italic">Anticipating your treasured presence.</div>
             </div>
+        </footer>
 
-        </div>
     </div>
 
-    <!-- Layout Operations Logic Pipeline -->
+    <!-- UI Execution Lifecyle Automation Scripts -->
     <script>
-        const targetEventTimestamp = new Date("2026-07-11T11:00:00").getTime();
-        const audio = document.getElementById('ambient-audio');
+        const weddingTimestamp = new Date("2026-07-11T11:00:00").getTime();
+        const loopAudioContext = document.getElementById('wedding-symphony');
+        const visualizerDockElement = document.getElementById('wave-visualizer');
 
-        const internalCountdownTracker = setInterval(function() {
-            const currentSystemTimestamp = new Date().getTime();
-            const executionDeltaDistance = targetEventTimestamp - currentSystemTimestamp;
+        let threeScene, threeCamera, threeRenderer, stardustSystem;
 
-            const parsedDays = Math.floor(executionDeltaDistance / (1000 * 60 * 60 * 24));
-            const parsedHours = Math.floor((executionDeltaDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const parsedMinutes = Math.floor((executionDeltaDistance % (1000 * 60 * 60)) / (1000 * 60));
-            const parsedSeconds = Math.floor((executionDeltaDistance % (1000 * 60)) / 1000);
+        // Initialize WebGL ThreeJS Ambient Starfield Architecture Engine
+        function initWebGLStardustCanvas() {
+            const container = document.getElementById('webgl-canvas-container');
+            threeScene = new THREE.Scene();
+            
+            threeCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+            threeCamera.position.z = 100;
 
-            document.getElementById("days-val").innerText = String(Math.max(0, parsedDays)).padStart(2, '0');
-            document.getElementById("hours-val").innerText = String(Math.max(0, parsedHours)).padStart(2, '0');
-            document.getElementById("minutes-val").innerText = String(Math.max(0, parsedMinutes)).padStart(2, '0');
-            document.getElementById("seconds-val").innerText = String(Math.max(0, parsedSeconds)).padStart(2, '0');
+            threeRenderer = new THREE.WebGLRenderer({ alpha: true, powerPreference: "high-performance" });
+            threeRenderer.setSize(window.innerWidth, window.innerHeight);
+            threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(threeRenderer.domElement);
 
-            if (executionDeltaDistance < 0) {
-                clearInterval(internalCountdownTracker);
-                document.getElementById("countdown-clock").innerHTML = 
-                    "<p class='text-xs uppercase tracking-widest text-amber-800 font-sans-labels font-semibold animate__animated animate__pulse animate__infinite'>The Marriage Celebration Has Commenced!</p>";
-                startGoldConfetti();
+            const geometricalStars = new THREE.BufferGeometry();
+            const starsCount = window.innerWidth < 768 ? 1200 : 2500;
+            const absolutePositions = new Float32Array(starsCount * 3);
+
+            for(let i=0; i<starsCount*3; i++) {
+                absolutePositions[i] = (Math.random() - 0.5) * 250;
             }
-        }, 1000);
 
-        function executeCinematicOpen() {
-            const envelope = document.getElementById('main-envelope');
-            const sealBtn = document.getElementById('seal-btn');
-            const indicatorLabel = document.getElementById('press-here-indicator');
-            const gateOverlay = document.getElementById('envelope-gate');
-            const targetProductionCard = document.getElementById('production-card');
-            const audioBtn = document.getElementById('audio-toggle');
-            
-            // Unmute & Play ambient accompaniment safely inside user action
-            audio.volume = 0.4;
-            audio.play().catch(e => console.log("Audio autoplay waiting for permission..."));
-            audioBtn.style.opacity = '1';
+            geometricalStars.setAttribute('position', new THREE.BufferAttribute(absolutePositions, 3));
 
-            if (indicatorLabel) indicatorLabel.style.opacity = '0';
-            sealBtn.style.opacity = '0';
-            sealBtn.style.transform = 'translate(-50%, -50%) scale(0.3)';
-            envelope.classList.add('stage-open-flap');
-            
-            setTimeout(() => {
-                envelope.classList.add('stage-slide-card');
-            }, 450);
-            
-            setTimeout(() => {
-                gateOverlay.style.opacity = '0';
-                gateOverlay.style.transform = 'scale(0.95)';
-                targetProductionCard.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
-                
-                setTimeout(() => {
-                    gateOverlay.style.display = 'none';
-                }, 1000);
-            }, 1400);
+            // Luxury Muted Gold Stardust Textured Particle System Configs
+            const materialMap = new THREE.PointsMaterial({
+                size: 0.85,
+                color: 0xdfba73,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            stardustSystem = new THREE.Points(geometricalStars, materialMap);
+            threeScene.add(stardustSystem);
+
+            // Responsive Window Scaling Listeners
+            window.addEventListener('resize', onViewportTransformResize, false);
+            document.addEventListener('mousemove', onInterativeCursorMotion, false);
+
+            renderThreeJSAudioLoop();
         }
 
-        function toggleAudio() {
-            const btn = document.getElementById('audio-toggle');
-            if (audio.paused) {
-                audio.play();
-                btn.innerText = "🔊 Mute";
+        function onViewportTransformResize() {
+            threeCamera.aspect = window.innerWidth / window.innerHeight;
+            threeCamera.updateProjectionMatrix();
+            threeRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Slight Interactive Cursor Drift
+        let trackingX = 0, trackingY = 0;
+        function onInterativeCursorMotion(event) {
+            trackingX = (event.clientX - window.innerWidth / 2) * 0.005;
+            trackingY = (event.clientY - window.innerHeight / 2) * 0.005;
+        }
+
+        function renderThreeJSAudioLoop() {
+            requestAnimationFrame(renderThreeJSAudioLoop);
+            
+            stardustSystem.rotation.y += 0.0008;
+            stardustSystem.rotation.x += 0.0003;
+
+            // Follow scrolling positioning metrics inside the 3D space
+            const currentScrollDistance = window.scrollY;
+            stardustSystem.position.y = currentScrollDistance * 0.03;
+
+            // Interpolated drift
+            stardustSystem.position.x += (trackingX - stardustSystem.position.x) * 0.05;
+
+            threeRenderer.render(threeScene, threeCamera);
+        }
+
+        // Register ScrollTrigger Engine Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Preloading System Screen Orchestration
+        window.addEventListener('DOMContentLoaded', () => {
+            initWebGLStardustCanvas();
+            
+            const tl = gsap.timeline();
+            tl.to("#curtain-header", { opacity: 1, y: 0, duration: 1.4, delay: 0.4, ease: "power3.out" })
+              .to("#curtain-interactive-node", { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }, "-=0.9")
+              .to("#curtain-footer", { opacity: 1, duration: 1 }, "-=0.6");
+        });
+
+        // Activation Execution Functionality Trigger
+        function igniteCinematicSystem() {
+            document.body.classList.remove('overflow-hidden');
+
+            const entryTimeline = gsap.timeline({
+                onComplete: () => {
+                    document.getElementById('loading-curtain').style.display = 'none';
+                }
+            });
+
+            entryTimeline.to("#loading-curtain", {
+                yPercent: -100,
+                duration: 1.8,
+                ease: "power4.inOut"
+            })
+            .to("#hud-audio-control", {
+                opacity: 1,
+                y: 0,
+                pointerEvents: "auto",
+                duration: 1.2
+            }, "-=0.7")
+            .from(".hero-stagger-node", {
+                opacity: 0,
+                y: 40,
+                stagger: 0.18,
+                duration: 1.5,
+                ease: "power3.out"
+            }, "-=1.3")
+            .from(".hero-title-node", {
+                opacity: 0,
+                letterSpacing: "0.45em",
+                duration: 2.2,
+                ease: "power2.out"
+            }, "-=1.6");
+
+            // Exponential Ambient Audio Fade-In Logic Loop
+            loopAudioContext.volume = 0;
+            loopAudioContext.play().then(() => {
+                visualizerDockElement.classList.remove('audio-paused-state');
+                gsap.to(loopAudioContext, { volume: 0.4, duration: 3.5, ease: "none" });
+            }).catch(err => console.log("System initialized manually via HUD action maps."));
+
+            initGsapSpatialAnimations();
+        }
+
+        // Sound Engine Control Handlers
+        function toggleSymphonyPlaystate() {
+            if (loopAudioContext.paused) {
+                loopAudioContext.play();
+                visualizerDockElement.classList.remove('audio-paused-state');
+                gsap.to(loopAudioContext, { volume: 0.4, duration: 1.5 });
             } else {
-                audio.pause();
-                btn.innerText = "🔇 Unmute";
+                gsap.to(loopAudioContext, {
+                    volume: 0,
+                    duration: 0.8,
+                    onComplete: () => {
+                        loopAudioContext.pause();
+                        visualizerDockElement.classList.add('audio-paused-state');
+                    }
+                });
             }
         }
 
-        function startGoldConfetti() {
-            for (let i = 0; i < 40; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'luxury-dust';
-                particle.innerText = ['✨', '👑', '💛', '🌟'][Math.floor(Math.random() * 4)];
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.fontSize = (Math.random() * 12 + 10) + 'px';
-                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                document.body.appendChild(particle);
-            }
+        // Continuous Fluid Display Trigger Maps
+        function initGsapSpatialAnimations() {
+            gsap.utils.toArray(".gsap-reveal-block").forEach(element => {
+                gsap.from(element, {
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 90%",
+                        toggleActions: "play none none none"
+                    },
+                    opacity: 0,
+                    y: 45,
+                    duration: 1.5,
+                    ease: "power3.out"
+                });
+            });
+
+            gsap.from(".gsap-profile-left", {
+                scrollTrigger: { trigger: ".gsap-profile-left", start: "top 85%" },
+                opacity: 0,
+                x: -70,
+                duration: 1.8,
+                ease: "power4.out"
+            });
+
+            gsap.from(".gsap-profile-right", {
+                scrollTrigger: { trigger: ".gsap-profile-right", start: "top 85%" },
+                opacity: 0,
+                x: 70,
+                duration: 1.8,
+                ease: "power4.out"
+            });
+
+            gsap.from(".gsap-card-element", {
+                scrollTrigger: { trigger: ".gsap-card-element", start: "top 85%" },
+                opacity: 0,
+                y: 60,
+                stagger: 0.3,
+                duration: 1.5,
+                ease: "power3.out"
+            });
         }
+
+        // Countdown Framework Realtime Loops
+        setInterval(function() {
+            const systemTime = new Date().getTime();
+            const deltaDistance = weddingTimestamp - systemTime;
+
+            const days = Math.floor(deltaDistance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((deltaDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((deltaDistance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((deltaDistance % (1000 * 60)) / 1000);
+
+            document.getElementById("days-span").innerText = String(Math.max(0, days)).padStart(2, '0');
+            document.getElementById("hours-span").innerText = String(Math.max(0, hours)).padStart(2, '0');
+            document.getElementById("minutes-span").innerText = String(Math.max(0, minutes)).padStart(2, '0');
+            document.getElementById("seconds-span").innerText = String(Math.max(0, seconds)).padStart(2, '0');
+        }, 1000);
     </script>
 </body>
 </html>
