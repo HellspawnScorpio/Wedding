@@ -164,9 +164,28 @@
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Confetti Particle Sheet */
+        .luxury-dust {
+            position: fixed; top: -10px; z-index: 99; pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body class="relative min-h-screen overflow-x-hidden flex flex-col items-center justify-center px-4 py-8 sm:py-16 selection:bg-amber-50 no-scrollbar">
+
+    <!-- 🎧 BACKGROUND AUDIO TRACK -->
+    <audio id="ambient-audio" loop preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
+    </audio>
+
+    <!-- 🔊 AUDIO CONTROL HUD -->
+    <button id="audio-toggle" onclick="toggleAudio()" class="fixed top-4 right-4 z-50 bg-white/80 border border-stone-200 text-[9px] font-sans-labels tracking-widest text-stone-500 px-3 py-1.5 rounded-full shadow-xs uppercase opacity-0 transition-opacity duration-500">
+        🔊 Mute
+    </button>
 
     <!-- ✉️ INTRODUCTORY CINEMATIC ENVELOPE GATEWAY -->
     <div id="envelope-gate" class="fixed inset-0 bg-[#f7f3e8] z-50 flex items-center justify-center p-4 transition-all duration-1000 ease-in-out">
@@ -331,6 +350,7 @@
     <!-- Layout Operations Logic Pipeline -->
     <script>
         const targetEventTimestamp = new Date("2026-07-11T11:00:00").getTime();
+        const audio = document.getElementById('ambient-audio');
 
         const internalCountdownTracker = setInterval(function() {
             const currentSystemTimestamp = new Date().getTime();
@@ -350,6 +370,7 @@
                 clearInterval(internalCountdownTracker);
                 document.getElementById("countdown-clock").innerHTML = 
                     "<p class='text-xs uppercase tracking-widest text-amber-800 font-sans-labels font-semibold animate__animated animate__pulse animate__infinite'>The Marriage Celebration Has Commenced!</p>";
+                startGoldConfetti();
             }
         }, 1000);
 
@@ -359,7 +380,13 @@
             const indicatorLabel = document.getElementById('press-here-indicator');
             const gateOverlay = document.getElementById('envelope-gate');
             const targetProductionCard = document.getElementById('production-card');
+            const audioBtn = document.getElementById('audio-toggle');
             
+            // Unmute & Play ambient accompaniment safely inside user action
+            audio.volume = 0.4;
+            audio.play().catch(e => console.log("Audio autoplay waiting for permission..."));
+            audioBtn.style.opacity = '1';
+
             if (indicatorLabel) indicatorLabel.style.opacity = '0';
             sealBtn.style.opacity = '0';
             sealBtn.style.transform = 'translate(-50%, -50%) scale(0.3)';
@@ -378,6 +405,30 @@
                     gateOverlay.style.display = 'none';
                 }, 1000);
             }, 1400);
+        }
+
+        function toggleAudio() {
+            const btn = document.getElementById('audio-toggle');
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "🔊 Mute";
+            } else {
+                audio.pause();
+                btn.innerText = "🔇 Unmute";
+            }
+        }
+
+        function startGoldConfetti() {
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'luxury-dust';
+                particle.innerText = ['✨', '👑', '💛', '🌟'][Math.floor(Math.random() * 4)];
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.fontSize = (Math.random() * 12 + 10) + 'px';
+                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
     </script>
 </body>
