@@ -3,42 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Shahzad & Farha</title>
+    <title>The Union of Shahzad & Farha</title>
     
-    <!-- Core Tailwind UI Architecture -->
+    <!-- Production CDNs -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Premium Motion Engineering Framework Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <!-- Premium Typography Registry -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@200;300;400;500&family=Cinzel:wght@300;400;500&family=Amiri&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --luxury-black: #0c0b0a;
-            --canvas-grey: #141312;
-            --gold-accent: #dfba73;
-            --gold-muted: #bda373;
-            --editorial-white: #f5f4f0;
+            --bg-dark: #090908;
+            --panel-dark: #121110;
+            --gold-bright: #e5c17d;
+            --gold-dim: #99835c;
+            --text-light: #f7f6f2;
         }
 
         body {
-            background-color: var(--luxury-black);
-            color: var(--editorial-white);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             font-family: 'Cormorant Garamond', serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        .font-editorial-serif { font-family: 'Cinzel', serif; }
-        .font-sans-labels { font-family: 'Montserrat', sans-serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
         .font-arabic { font-family: 'Amiri', serif; }
 
-        #webgl-canvas-container {
+        #webgl-background {
             position: fixed;
             top: 0;
             left: 0;
@@ -46,491 +44,496 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.55;
+            opacity: 0.65;
         }
 
-        .scrolling-viewport-wrapper {
+        .main-scroller {
             position: relative;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(12,11,10,0.4) 0%, rgba(20,19,18,0.85) 50%, rgba(12,11,10,0.98) 100%);
+            background: linear-gradient(to bottom, rgba(9,9,8,0.3) 0%, rgba(18,17,16,0.9) 30%, rgba(9,9,8,0.98) 100%);
         }
 
-        /* Interactive Audio Indicator Wave Bars */
-        .audio-wave-bar {
+        /* Gold Gradient Text Enhancement */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f3e7c4 0%, #e5c17d 50%, #aa8945 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Audio HUD Wave animation styling */
+        .wave-bar {
             width: 2px;
-            height: 4px;
-            background-color: var(--gold-accent);
+            height: 3px;
+            background-color: var(--gold-bright);
             transform-origin: bottom;
-            animation: renderWave 1.2s infinite ease-in-out alternate;
+            animation: bounce 1.4s infinite ease-in-out alternate;
         }
-        .audio-wave-bar:nth-child(2) { animation-delay: 0.15s; height: 9px; }
-        .audio-wave-bar:nth-child(3) { animation-delay: 0.35s; height: 14px; }
-        .audio-wave-bar:nth-child(4) { animation-delay: 0.5s; height: 7px; }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; height: 10px; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; height: 15px; }
+        .wave-bar:nth-child(4) { animation-delay: 0.1s; height: 7px; }
 
-        @keyframes renderWave {
+        @keyframes bounce {
             0% { transform: scaleY(1); }
-            100% { transform: scaleY(3.5); }
+            100% { transform: scaleY(4); }
         }
-        .audio-paused-state .audio-wave-bar {
+        .audio-muted .wave-bar {
             animation-play-state: paused !important;
-            transform: scaleY(0.3) !important;
+            transform: scaleY(0.2) !important;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--luxury-black); }
-        ::-webkit-scrollbar-thumb { background: #292524; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-muted); }
+        /* Custom frame corners for a regal finish */
+        .corner-border-box {
+            position: relative;
+        }
+        .corner-border-box::before, .corner-border-box::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 1px solid var(--gold-dim);
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+        .corner-border-box::before { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+        .corner-border-box::after { bottom: 0; right: 0; border-top: 0; border-left: 0; }
+        .corner-border-box:hover::before { width: 30px; height: 30px; border-color: var(--gold-bright); }
+        .corner-border-box:hover::after { width: 30px; height: 30px; border-color: var(--gold-bright); }
     </style>
 </head>
-<body class="antialiased overflow-hidden select-none">
+<body class="overflow-hidden select-none">
 
-    <!-- WebGL Canvas Backdrop -->
-    <div id="webgl-canvas-container"></div>
+    <!-- Canvas Instance for interactive stars matrix -->
+    <div id="webgl-background"></div>
 
-    <!-- Cinematic Audio Loop -->
-    <audio id="wedding-symphony" loop preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mp3">
+    <!-- Hidden audio channel -->
+    <audio id="ambient-audio-player" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Entry Curtain Interface -->
-    <div id="loading-curtain" class="fixed inset-0 bg-[#0c0b0a] z-50 flex flex-col items-center justify-between py-20 px-6 unified-scroller-lock">
-        <div id="curtain-header" class="text-center pt-8 opacity-0">
-            <span class="font-sans-labels text-[9px] tracking-[0.6em] text-stone-500 uppercase block mb-3">The Digital Portal of</span>
-            <h1 class="font-editorial-serif text-xl sm:text-2xl text-[#dfba73] tracking-[0.35em] font-light">SHAHZAD & FARHA</h1>
+    <!-- Luxury Gate Entrance Overlay -->
+    <div id="curtain-gate" class="fixed inset-0 bg-[#090908] z-50 flex flex-col items-center justify-between py-24 px-8">
+        <div id="curtain-top" class="text-center opacity-0 transform translate-y-[-20px]">
+            <p class="font-montserrat text-[9px] tracking-[0.5em] text-stone-500 uppercase">Royal Proclamation</p>
+            <div class="h-[1px] w-12 bg-stone-800 mx-auto mt-4"></div>
         </div>
 
-        <div id="curtain-interactive-node" class="text-center space-y-10 opacity-0">
-            <div class="space-y-2">
-                <p class="font-sans-labels text-[10px] tracking-[0.3em] text-stone-400 uppercase">The Royal Invitation</p>
-                <div class="w-8 h-[0.5px] bg-[#dfba73]/40 mx-auto"></div>
-            </div>
+        <div id="curtain-center" class="text-center space-y-12 opacity-0 scale-[0.97]">
+            <h1 class="font-cinzel text-2xl sm:text-3xl tracking-[0.3em] font-light text-[#e5c17d]">SHAHZAD &amp; FARHA</h1>
+            <p class="font-montserrat text-[10px] tracking-[0.4em] text-stone-400 uppercase italic">The Digital Invitation Lifecycle</p>
             
-            <button onclick="igniteCinematicSystem()" class="group relative px-16 py-6 rounded-none overflow-hidden transition-all duration-500 bg-transparent">
-                <span class="absolute top-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
-                <span class="absolute bottom-0 left-0 w-full h-[1px] bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
-                <span class="absolute top-0 left-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
-                <span class="absolute top-0 right-0 w-[1px] h-full bg-stone-800 group-hover:bg-[#dfba73] transition-colors duration-700"></span>
-                <span class="absolute inset-[5px] bg-[#dfba73] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] origin-left"></span>
-                <span class="relative font-sans-labels text-[10px] tracking-[0.5em] uppercase text-stone-400 group-hover:text-stone-900 transition-colors duration-500 block font-medium">
-                    Enter the Invitation
+            <button onclick="unlockInvitationExperience()" class="group relative px-20 py-5 transition-all duration-500 bg-transparent border border-stone-800 hover:border-[#e5c17d]/60">
+                <span class="relative font-montserrat text-[9px] tracking-[0.6em] uppercase text-stone-300 group-hover:text-white transition-colors duration-300 block">
+                    Unveil Invitation
                 </span>
             </button>
         </div>
 
-        <div id="curtain-footer" class="text-center opacity-0">
-            <span class="font-sans-labels text-[8px] tracking-[0.25em] text-stone-600 uppercase">© 2026 The Moopan Wedding Portfolio</span>
+        <div id="curtain-bottom" class="text-center opacity-0 transform translate-y-[20px]">
+            <span class="font-montserrat text-[8px] tracking-[0.3em] text-stone-600 uppercase">Est. 2026 • Under Divine Canopy</span>
         </div>
     </div>
 
-    <!-- Floating HUD Media Control -->
-    <div id="hud-audio-control" class="fixed top-6 right-6 sm:top-8 sm:right-8 z-40 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-[-10px]">
-        <button onclick="toggleSymphonyPlaystate()" class="flex items-center gap-4 bg-stone-900/80 backdrop-blur-2xl border border-stone-800 pl-4 pr-5 py-3 rounded-full shadow-2xl hover:border-[#dfba73]/40 transition-all duration-300">
-            <div id="wave-visualizer" class="flex gap-[2.5px] items-center h-4 w-4 audio-paused-state">
-                <div class="audio-wave-bar"></div>
-                <div class="audio-wave-bar"></div>
-                <div class="audio-wave-bar"></div>
-                <div class="audio-wave-bar"></div>
+    <!-- Persistent Minimalist Media Controls HUD -->
+    <div id="audio-hud-node" class="fixed top-8 right-8 z-40 opacity-0 pointer-events-none transform translate-x-[20px] transition-all duration-1000">
+        <button onclick="handleAudioPlaybackToggle()" class="flex items-center gap-4 bg-stone-900/90 backdrop-blur-xl border border-stone-800/60 px-5 py-3 rounded-none hover:border-[#e5c17d]/40 transition-colors">
+            <div id="wave-container" class="flex gap-[2px] items-center h-4 w-4 audio-muted">
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+                <div class="wave-bar"></div>
             </div>
-            <span class="font-sans-labels text-[8.5px] tracking-[0.3em] uppercase text-[#dfba73] font-medium">Sound Track</span>
+            <span class="font-montserrat text-[8px] tracking-[0.30em] uppercase text-[#e5c17d]">Soundscape</span>
         </button>
     </div>
 
-    <!-- Section 1: Hero Viewport -->
-    <section id="hero-viewport" class="relative w-full h-screen overflow-hidden flex flex-col justify-between items-center text-center px-4 z-10">
-        <div class="pt-28 z-10 hero-stagger-node">
-            <div class="font-arabic text-4xl text-[#dfba73]/90 tracking-wide mb-4">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-            <span class="font-sans-labels text-[9.5px] tracking-[0.55em] uppercase text-stone-400 block">The Eternal Union</span>
-        </div>
+    <!-- ================= MAIN SCROLLABLE BODY LAYER ================= -->
+    <div class="main-scroller w-full">
 
-        <div class="my-auto space-y-8 z-10">
-            <h2 class="font-editorial-serif text-5xl sm:text-7xl lg:text-8xl text-white tracking-[0.22em] font-light leading-tight hero-title-node">
-                SHAHZAD <br class="sm:hidden"><span class="text-lg sm:text-xl font-sans-labels font-light text-[#dfba73] tracking-[0.4em] block sm:inline my-6 sm:my-0 sm:mx-8">&</span> FARHA
-            </h2>
-            <div class="w-16 h-[0.5px] bg-[#dfba73]/40 mx-auto hero-stagger-node"></div>
-            <span class="font-sans-labels text-[11px] tracking-[0.4em] uppercase text-stone-300 block hero-stagger-node">July 11, 2026</span>
-        </div>
-
-        <div class="pb-24 z-10 hero-stagger-node">
-            <div class="text-[#dfba73]/50 font-sans-labels text-[9px] tracking-[0.3em] uppercase animate-pulse">
-                Scroll Down To Unveil
+        <!-- HERO SECTION -->
+        <section class="relative w-full h-screen flex flex-col justify-between items-center text-center px-6 z-10">
+            <div class="pt-32 space-y-4 hero-fade-item">
+                <div class="font-arabic text-3xl sm:text-4xl text-[#e5c17d]/90 tracking-wide">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+                <p class="font-montserrat text-[9px] tracking-[0.5em] text-stone-400 uppercase">In the Name of Allah, Most Gracious, Most Merciful</p>
             </div>
-            <div class="text-[#dfba73]/30 text-lg mt-2">↓</div>
-        </div>
-    </section>
 
-    <!-- Core Editorial Scroll Viewport Wrapper -->
-    <div class="scrolling-viewport-wrapper w-full">
+            <div class="my-auto space-y-10">
+                <h2 class="font-cinzel text-5xl sm:text-7xl lg:text-8xl tracking-[0.2em] font-light text-white leading-none hero-main-title">
+                    SHAHZAD <br><span class="text-xl sm:text-2xl font-montserrat font-light text-[#e5c17d] tracking-[0.5em] block my-8">&amp;</span> FARHA
+                </h2>
+                <div class="w-12 h-[0.5px] bg-[#e5c17d]/40 mx-auto hero-fade-item"></div>
+                <p class="font-montserrat text-[11px] tracking-[0.5em] text-stone-300 uppercase font-light hero-fade-item">July 11, 2026 • Palakkad</p>
+            </div>
 
-        <!-- Section 2: Host Invocations -->
-        <section class="max-w-4xl mx-auto px-6 py-40 sm:py-56 text-center space-y-20 relative z-20">
-            <div class="gsap-reveal-block space-y-6">
-                <span class="font-sans-labels text-[10px] tracking-[0.45em] text-[#dfba73] uppercase font-medium block">Under the Divine Blessings of Allah</span>
-                <p class="text-2xl sm:text-3xl text-stone-300 max-w-2xl mx-auto font-light italic leading-relaxed">
-                    We request the honor of your esteemed presence to grace the auspicious marriage ceremony of our son
+            <div class="pb-20 space-y-2 hero-fade-item">
+                <span class="font-montserrat text-[8px] tracking-[0.4em] text-stone-500 uppercase block animate-pulse">Scroll to Begin Journey</span>
+                <div class="text-[#e5c17d]/30 text-sm">↓</div>
+            </div>
+        </section>
+
+        <!-- HOST INVITATION SECTION -->
+        <section class="max-w-5xl mx-auto px-6 py-48 text-center space-y-24 relative z-20">
+            <div class="gsap-reveal space-y-6">
+                <span class="font-montserrat text-[9px] tracking-[0.4em] text-[#e5c17d] uppercase font-medium tracking-widest block">The Honorable Request</span>
+                <p class="font-serif text-3xl sm:text-4xl text-stone-200 max-w-3xl mx-auto font-light italic leading-relaxed">
+                    "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them..."
                 </p>
+                <p class="font-montserrat text-[9px] tracking-[0.2em] text-stone-500 uppercase">— Surah Ar-Rum: 21</p>
             </div>
 
-            <div class="w-[0.5px] h-28 bg-[#dfba73]/30 mx-auto gsap-reveal-block"></div>
+            <div class="w-[0.5px] h-32 bg-gradient-to-b from-[#e5c17d]/40 to-transparent mx-auto gsap-reveal"></div>
 
-            <!-- Host Identity Blocks -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-center max-w-3xl mx-auto pt-4 font-editorial-serif">
-                <div class="gsap-reveal-block space-y-3">
-                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-stone-500 uppercase block mb-1">From The Family of The Groom</span>
-                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">MR. SHAHUL HAMEED</h3>
-                    <p class="text-xs font-sans-labels font-light text-[#dfba73] lowercase tracking-widest">(Sabu Moopan)</p>
-                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">& MRS. SHYNA N.A</h3>
-                    <p class="font-sans-labels text-[9.5px] tracking-widest text-stone-400 uppercase pt-2 font-light">Moopan Manzil, Pazhambalacode, Palakkad</p>
+            <!-- Parent Lineage Segment -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-center max-w-4xl mx-auto pt-6">
+                <div class="gsap-reveal space-y-4 border-b md:border-b-0 md:border-r border-stone-900 pb-12 md:pb-0 md:pr-16">
+                    <span class="font-montserrat text-[8.5px] tracking-[0.3em] text-stone-500 uppercase block">Groom's Family Honors</span>
+                    <h3 class="font-cinzel text-2xl tracking-[0.1em] text-stone-100 font-normal">MR. SHAHUL HAMEED</h3>
+                    <p class="text-[11px] font-montserrat font-light text-[#e5c17d]/80 tracking-widest italic">(Sabu Moopan)</p>
+                    <h3 class="font-cinzel text-2xl tracking-[0.1em] text-stone-100 font-normal">&amp; MRS. SHYNA N.A</h3>
+                    <p class="font-montserrat text-[9px] tracking-[0.2em] text-stone-400 uppercase pt-4 font-light leading-relaxed">Moopan Manzil, Pazhambalacode,<br>Palakkad</p>
                 </div>
 
-                <div class="gsap-reveal-block space-y-3 border-t md:border-t-0 md:border-l border-stone-800 pt-10 md:pt-0 md:pl-16">
-                    <span class="font-sans-labels text-[9px] tracking-[0.3em] text-stone-500 uppercase block mb-1">From The Family of The Bride</span>
-                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">MR. FIROSH USSANAR</h3>
-                    <h3 class="text-2xl tracking-[0.15em] text-white font-medium">& MRS. KHADEEJA FIROSH</h3>
-                    <p class="font-sans-labels text-[9.5px] tracking-widest text-stone-400 uppercase pt-2 font-light">"Al Busthan" Vadakkenada, Kavassery, Palakkad</p>
+                <div class="gsap-reveal space-y-4 pt-4 md:pt-0 md:pl-16">
+                    <span class="font-montserrat text-[8.5px] tracking-[0.3em] text-stone-500 uppercase block">Bride's Family Honors</span>
+                    <h3 class="font-cinzel text-2xl tracking-[0.1em] text-stone-100 font-normal">MR. FIROSH USSANAR</h3>
+                    <h3 class="font-cinzel text-2xl tracking-[0.1em] text-stone-100 font-normal">&amp; MRS. KHADEEJA FIROSH</h3>
+                    <p class="font-montserrat text-[9px] tracking-[0.2em] text-stone-400 uppercase pt-8 font-light leading-relaxed">"Al Busthan" Vadakkenada, Kavassery,<br>Palakkad</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Coupling Heritage -->
-        <section class="max-w-5xl mx-auto px-6 py-32 border-t border-stone-900">
+        <!-- NEW EDITORIAL INTERLUDE: THE SPIRITUAL BOND -->
+        <section class="w-full bg-[#121110]/40 border-y border-stone-900 py-32 text-center relative overflow-hidden">
+            <div class="max-w-3xl mx-auto px-6 space-y-8 relative z-10 gsap-reveal">
+                <div class="font-arabic text-4xl sm:text-5xl text-[#e5c17d]/40 mb-2">وَخَلَقْنَاكُمْ أَزْوَاجًا</div>
+                <span class="font-montserrat text-[9px] tracking-[0.5em] text-[#e5c17d] uppercase block">A Sacred Covenant</span>
+                <h3 class="font-cinzel text-2xl sm:text-3xl text-white tracking-widest font-light">"And We Created You In Pairs"</h3>
+                <p class="font-montserrat text-[9.5px] tracking-[0.25em] text-stone-500 uppercase">— Surah An-Naba: 8</p>
+            </div>
+        </section>
+
+        <!-- HERITAGE PROFILE ARCHPRETENSIONS -->
+        <section class="max-w-5xl mx-auto px-6 py-48">
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
-                <div class="lg:col-span-2 text-center lg:text-right space-y-5 gsap-profile-left">
-                    <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Groom</span>
-                    <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">SHAHZAD</h2>
-                    <div class="w-12 h-[1px] bg-[#dfba73]/30 ml-auto mr-auto lg:mr-0 my-4"></div>
-                    <p class="font-sans-labels text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
-                        Grandson of Late K. Ismail Moopan & Late K. U. Mariyakutty <br>
-                        & Late N. M. Abubacker & P. B. Fathima
+                
+                <!-- Groom Card -->
+                <div class="lg:col-span-2 text-center lg:text-right space-y-6 gsap-left-profile bg-stone-900/10 p-8 sm:p-12 corner-border-box">
+                    <span class="font-montserrat text-[9px] tracking-[0.4em] uppercase text-[#e5c17d] font-medium block">The Groom</span>
+                    <h2 class="font-cinzel text-4xl tracking-[0.1em] font-light text-white">SHAHZAD</h2>
+                    <div class="w-10 h-[1px] bg-[#e5c17d]/30 ml-auto mr-auto lg:mr-0"></div>
+                    <p class="font-montserrat text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
+                        Grandson of Late K. Ismail Moopan &amp; Late K. U. Mariyakutty <br class="hidden lg:block">
+                        &amp; Late N. M. Abubacker &amp; P. B. Fathima
                     </p>
                 </div>
 
-                <div class="lg:col-span-1 text-center py-4 lg:py-0 gsap-reveal-block">
-                    <span class="font-editorial-serif text-2xl text-[#dfba73]/40 italic block font-light">With</span>
+                <!-- Connective Wordmark -->
+                <div class="lg:col-span-1 text-center gsap-reveal py-6 lg:py-0">
+                    <span class="font-cinzel text-xl text-stone-600 tracking-widest uppercase block italic font-light">with</span>
                 </div>
 
-                <div class="lg:col-span-2 text-center lg:text-left space-y-5 gsap-profile-right">
-                    <span class="font-sans-labels text-[9px] tracking-[0.45em] uppercase text-[#dfba73] font-medium block">The Bride</span>
-                    <h2 class="font-editorial-serif text-4xl sm:text-5xl tracking-[0.1em] font-light text-white">FARHA</h2>
-                    <div class="w-12 h-[1px] bg-[#dfba73]/30 mr-auto ml-auto lg:ml-0 my-4"></div>
-                    <p class="font-sans-labels text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
-                        Granddaughter of Late Ussanar Sahib & Late Sara Umma <br>
-                        & Late Syed Mohammed & Umaiba Beevi
+                <!-- Bride Card -->
+                <div class="lg:col-span-2 text-center lg:text-left space-y-6 gsap-right-profile bg-stone-900/10 p-8 sm:p-12 corner-border-box">
+                    <span class="font-montserrat text-[9px] tracking-[0.4em] uppercase text-[#e5c17d] font-medium block">The Bride</span>
+                    <h2 class="font-cinzel text-4xl tracking-[0.1em] font-light text-white">FARHA</h2>
+                    <div class="w-10 h-[1px] bg-[#e5c17d]/30 mr-auto ml-auto lg:ml-0"></div>
+                    <p class="font-montserrat text-[9.5px] tracking-[0.2em] text-stone-400 uppercase leading-relaxed font-light">
+                        Granddaughter of Late Ussanar Sahib &amp; Late Sara Umma <br class="hidden lg:block">
+                        &amp; Late Syed Mohammed &amp; Umaiba Beevi
                     </p>
                 </div>
+
             </div>
         </section>
 
-        <!-- Section 4: Scheduling & Location Portals -->
-        <section class="max-w-4xl mx-auto px-6 py-40 text-center space-y-24">
-            <div class="gsap-reveal-block text-center space-y-3">
-                <span class="font-sans-labels text-[9.5px] tracking-[0.45em] text-stone-500 uppercase block">The Rendezvous</span>
-                <h2 class="font-editorial-serif text-3xl sm:text-4xl font-light tracking-widest text-white">TIME & DESTINATION</h2>
+        <!-- LOGISTICAL CHRONICLES & TIMELINE HUB -->
+        <section class="max-w-5xl mx-auto px-6 py-32 space-y-32">
+            <div class="gsap-reveal text-center space-y-4">
+                <span class="font-montserrat text-[9px] tracking-[0.5em] text-stone-500 uppercase block">The Celebration Matrices</span>
+                <h2 class="font-cinzel text-3xl tracking-widest text-white font-light">THE SCHEDULE &amp; ORIENTATION</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
-                <!-- Date Card -->
-                <div class="gsap-card-element bg-stone-900/20 border border-stone-900 p-12 space-y-8 backdrop-blur-md text-center flex flex-col justify-between">
-                    <div class="space-y-6">
-                        <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">Date & Schedule</span>
-                        <div class="space-y-2">
-                            <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Saturday, 11 July 2026</h4>
-                            <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">1448 Muharram 26</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                
+                <!-- Schedule Manifest -->
+                <div class="gsap-card bg-stone-900/20 border border-stone-900/60 p-12 flex flex-col justify-between items-center text-center space-y-8 backdrop-blur-md">
+                    <div class="space-y-4">
+                        <div class="border border-[#e5c17d]/30 px-4 py-1 inline-block">
+                            <span class="font-montserrat text-[8px] tracking-[0.3em] text-[#e5c17d] uppercase font-medium">Nikkah Ceremony</span>
                         </div>
+                        <h4 class="font-cinzel text-2xl text-stone-100 font-light tracking-wide">Saturday, 11 July 2026</h4>
+                        <p class="text-stone-500 font-montserrat text-[10px] tracking-widest uppercase">1448 Muharram 26</p>
                     </div>
-                    <div class="w-8 h-[0.5px] bg-stone-800 mx-auto"></div>
-                    <p class="font-sans-labels text-[11px] tracking-[0.25em] text-stone-200 uppercase font-medium bg-stone-900/80 py-3 border border-stone-800">
-                        11:00 AM — 2:00 PM
-                    </p>
-                    <div class="pt-4">
-                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Shahzad+and+Farha&dates=20260711T110000/20260711T140000&details=Under+the+Divine+Blessings+of+Allah,+you+are+cordially+invited.&location=Kalarikkal+Venue,+Kuzhalmannam,+Palakkad" target="_blank" class="inline-block font-sans-labels text-[8.5px] tracking-[0.2em] text-stone-400 uppercase hover:text-[#dfba73] transition-colors duration-300">
-                            + Add to Calendar
-                        </a>
+                    
+                    <div class="w-8 h-[0.5px] bg-stone-800"></div>
+                    
+                    <div class="space-y-2">
+                        <span class="font-montserrat text-[12px] tracking-[0.3em] text-stone-200 block uppercase font-light">Feast &amp; Reception</span>
+                        <p class="font-montserrat text-[10px] tracking-[0.2em] text-[#e5c17d]">11:00 AM — 2:00 PM</p>
                     </div>
+
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The+Wedding+of+Shahzad+and+Farha&amp;dates=20260711T110000/20260711T140000&amp;details=Under+the+Divine+Blessings+of+Allah.&amp;location=Kalarikkal+Venue,+Kuzhalmannam,+Palakkad" target="_blank" class="font-montserrat text-[8.5px] tracking-[0.25em] text-stone-400 hover:text-[#e5c17d] transition-colors border-b border-stone-800 pb-1">
+                        + Retain Date on Device
+                    </a>
                 </div>
 
-                <!-- Location Card -->
-                <div class="gsap-card-element bg-stone-900/20 border border-stone-900 p-12 space-y-8 backdrop-blur-md text-center flex flex-col justify-between">
-                    <div class="space-y-6">
-                        <span class="font-sans-labels text-[9px] tracking-[0.3em] text-[#dfba73] uppercase font-semibold block">The Destination</span>
-                        <div class="space-y-2">
-                            <h4 class="font-editorial-serif text-2xl text-white tracking-wide font-light">Kalarikkal Venue</h4>
-                            <p class="text-stone-500 font-sans-labels text-[10px] tracking-widest uppercase font-light">Kulavanmukku, Kuzhalmannam, Palakkad</p>
+                <!-- Destination Coordinates -->
+                <div class="gsap-card bg-stone-900/20 border border-stone-900/60 p-12 flex flex-col justify-between items-center text-center space-y-8 backdrop-blur-md">
+                    <div class="space-y-4">
+                        <div class="border border-stone-800 px-4 py-1 inline-block">
+                            <span class="font-montserrat text-[8px] tracking-[0.3em] text-stone-500 uppercase">The Pavilion</span>
                         </div>
+                        <h4 class="font-cinzel text-2xl text-stone-100 font-light tracking-wide">Kalarikkal Venue</h4>
+                        <p class="text-stone-400 font-montserrat text-[9px] tracking-widest uppercase font-light leading-relaxed">Kulavanmukku, Kuzhalmannam,<br>Palakkad</p>
                     </div>
-                    <div class="pt-8">
-                        <a href="https://maps.google.com/?q=Kalarikkal+Convention+Centre+Kuzhalmannam" target="_blank" class="inline-block font-sans-labels text-[9.5px] tracking-[0.35em] text-[#dfba73] uppercase font-semibold border-b border-[#dfba73]/30 pb-2 hover:text-white hover:border-white transition-all duration-300">
-                            Launch Navigation Hub →
-                        </a>
-                    </div>
+
+                    <div class="w-8 h-[0.5px] bg-stone-800"></div>
+
+                    <p class="font-montserrat text-[9px] tracking-[0.2em] text-stone-500 uppercase max-w-[200px]">Ample guest and valet parking configurations available within structural compounds.</p>
+
+                    <a href="https://maps.google.com/?q=Kalarikkal+Convention+Centre+Kuzhalmannam" target="_blank" class="font-montserrat text-[9px] tracking-[0.3em] text-[#e5c17d] uppercase font-medium bg-stone-900/80 px-6 py-3 border border-stone-800 hover:border-[#e5c17d]/40 transition-all">
+                        Map Infrastructure →
+                    </a>
                 </div>
+
             </div>
 
-            <!-- Countdown Module -->
-            <div class="gsap-reveal-block max-w-xl mx-auto pt-16 border-t border-stone-900">
-                <span class="font-sans-labels text-[9px] tracking-[0.4em] text-stone-500 uppercase block mb-10">Approaching The Blessed Moment</span>
-                <div id="live-countdown-clock" class="grid grid-cols-4 gap-4 font-editorial-serif text-3xl sm:text-5xl text-white font-light">
-                    <div><span id="days-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Days</span></div>
-                    <div><span id="hours-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Hours</span></div>
-                    <div><span id="minutes-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Mins</span></div>
-                    <div><span id="seconds-span" class="block font-light text-[#dfba73] tabular-nums">00</span><span class="text-[9px] tracking-[0.25em] uppercase font-sans-labels text-stone-500 block mt-3">Secs</span></div>
+            <!-- Countdown Assembly -->
+            <div class="gsap-reveal max-w-2xl mx-auto pt-20 border-t border-stone-900 text-center space-y-12">
+                <span class="font-montserrat text-[8.5px] tracking-[0.4em] text-stone-500 uppercase block">Countdown Metrics Until Celebration</span>
+                
+                <div id="countdown-ticker" class="grid grid-cols-4 gap-6 font-cinzel text-4xl sm:text-5xl text-stone-100 font-light">
+                    <div class="space-y-2"><span id="days-val" class="text-[#e5c17d] tabular-nums">00</span><span class="text-[8.5px] tracking-[0.2em] uppercase font-montserrat text-stone-500 block">Days</span></div>
+                    <div class="space-y-2"><span id="hours-val" class="text-[#e5c17d] tabular-nums">00</span><span class="text-[8.5px] tracking-[0.2em] uppercase font-montserrat text-stone-500 block">Hours</span></div>
+                    <div class="space-y-2"><span id="mins-val" class="text-[#e5c17d] tabular-nums">00</span><span class="text-[8.5px] tracking-[0.2em] uppercase font-montserrat text-stone-500 block">Mins</span></div>
+                    <div class="space-y-2"><span id="secs-val" class="text-[#e5c17d] tabular-nums">00</span><span class="text-[8.5px] tracking-[0.2em] uppercase font-montserrat text-stone-500 block">Secs</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Premium RSVP Micro-Portal Section -->
-        <section class="max-w-xl mx-auto px-6 py-20 text-center gsap-reveal-block border-t border-stone-900">
-            <span class="font-sans-labels text-[9px] tracking-[0.45em] text-[#dfba73] uppercase font-medium block mb-4">Honor Us With Your Presence</span>
-            <h3 class="font-editorial-serif text-2xl text-white tracking-widest font-light mb-8">DIGITAL RSVP</h3>
-            <form id="rsvp-form" class="space-y-6 text-left" onsubmit="handleRSVPSubmit(event)">
-                <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
-                    <input type="text" id="rsvp-name" required placeholder="Your Name" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-white placeholder-stone-600 focus:outline-none uppercase">
-                </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
-                        <select id="rsvp-guests" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-stone-400 focus:outline-none appearance-none cursor-pointer">
-                            <option value="1" class="bg-stone-950 text-white">1 Guest</option>
-                            <option value="2" class="bg-stone-950 text-white">2 Guests</option>
-                            <option value="3" class="bg-stone-950 text-white">3 Guests</option>
-                            <option value="4" class="bg-stone-950 text-white">4+ Guests</option>
-                        </select>
-                    </div>
-                    <div class="relative border-b border-stone-800 focus-within:border-[#dfba73] transition-colors duration-300">
-                        <select id="rsvp-status" class="w-full bg-transparent py-3 font-sans-labels text-xs tracking-wider text-stone-400 focus:outline-none appearance-none cursor-pointer">
-                            <option value="attending" class="bg-stone-950 text-white">Joyfully Attending</option>
-                            <option value="declining" class="bg-stone-950 text-white">Regretfully Declining</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-4 border border-stone-800 hover:border-[#dfba73] text-[9px] uppercase font-sans-labels tracking-[0.4em] text-stone-400 hover:text-stone-900 hover:bg-[#dfba73] transition-all duration-500 ease-out">
-                    Confirm Attendance
-                </button>
-            </form>
-            <div id="rsvp-ack" class="hidden text-xs font-sans-labels text-[#dfba73] tracking-widest mt-4 uppercase animate-pulse">Thank you. Your response has been registered.</div>
-        </section>
-
-        <!-- Master Closing Footer -->
-        <footer class="w-full text-center py-24 border-t border-stone-900 relative z-20 bg-[#0c0b0a]/90">
-            <div class="space-y-4 gsap-reveal-block">
-                <p class="font-sans-labels text-[10px] tracking-[0.4em] text-stone-500 uppercase">
-                    With Kindest Compliments From <span class="text-white font-medium">The Moopan Family</span>
+        <!-- ADDED SECTION: WARM INVOCATIONS (REPLACING GENERIC RSVP FOOTERS) -->
+        <section class="max-w-4xl mx-auto px-6 py-32 border-t border-stone-900/60 text-center space-y-12 relative z-20">
+            <div class="gsap-reveal space-y-4">
+                <span class="font-montserrat text-[9px] tracking-[0.5em] text-[#e5c17d] uppercase block">A Note to Travelers</span>
+                <h3 class="font-cinzel text-xl text-white tracking-[0.2em] font-light">BLESSINGS OVER PRESENTS</h3>
+                <p class="font-serif text-lg text-stone-400 max-w-xl mx-auto italic font-light leading-relaxed">
+                    "Your presence, travel prayers, and pure intentions on this blessed day are the greatest treasures we could ever ask to receive."
                 </p>
-                <div class="text-[12px] font-light text-stone-400 italic">Anticipating your treasured presence.</div>
+            </div>
+        </section>
+
+        <!-- GRAND INDUSTRIAL REPERTOIRE FOOTER -->
+        <footer class="w-full text-center py-28 border-t border-stone-900 bg-[#090908]/95 relative z-20">
+            <div class="space-y-6 gsap-reveal">
+                <p class="font-montserrat text-[9.5px] tracking-[0.45em] text-stone-500 uppercase">
+                    With Infinite Compliments From <span class="text-stone-300 font-medium">The Moopan Family</span>
+                </p>
+                <div class="w-8 h-[1px] bg-stone-800 mx-auto"></div>
+                <div class="text-[12px] text-stone-400 font-light italic">Looking forward to celebrating this eternal horizon alongside you.</div>
             </div>
         </footer>
 
     </div>
 
-    <!-- UI Execution Lifecycle Automation Scripts -->
+    <!-- PIPELINE SCRIPT MANAGEMENT -->
     <script>
-        const weddingTimestamp = new Date("2026-07-11T11:00:00").getTime();
-        const loopAudioContext = document.getElementById('wedding-symphony');
-        const visualizerDockElement = document.getElementById('wave-visualizer');
+        const weddingTargetTime = new Date("2026-07-11T11:00:00").getTime();
+        const audioDomInstance = document.getElementById('ambient-audio-player');
+        const waveContainerNode = document.getElementById('wave-container');
 
-        let threeScene, threeCamera, threeRenderer, stardustSystem;
-        let trackingX = 0, trackingY = 0, currentTargetX = 0, currentTargetY = 0;
+        let sceneInstance, cameraInstance, rendererInstance, stardustLayer;
+        let internalMouseX = 0, internalMouseY = 0, lerpTargetX = 0, lerpTargetY = 0;
 
-        function initWebGLStardustCanvas() {
-            const container = document.getElementById('webgl-canvas-container');
-            threeScene = new THREE.Scene();
+        function runWebGLInitialization() {
+            const viewportContainer = document.getElementById('webgl-background');
+            sceneInstance = new THREE.Scene();
             
-            threeCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
-            threeCamera.position.z = 120;
+            cameraInstance = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 1000);
+            cameraInstance.position.z = 130;
 
-            threeRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
-            threeRenderer.setSize(window.innerWidth, window.innerHeight);
-            threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(threeRenderer.domElement);
+            rendererInstance = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
+            rendererInstance.setSize(window.innerWidth, window.innerHeight);
+            rendererInstance.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            viewportContainer.appendChild(rendererInstance.domElement);
 
-            const geometricalStars = new THREE.BufferGeometry();
-            const isMobile = window.innerWidth < 768;
-            const starsCount = isMobile ? 800 : 2000;
-            const absolutePositions = new Float32Array(starsCount * 3);
+            const bufferGeometry = new THREE.BufferGeometry();
+            const adaptiveCount = window.innerWidth < 768 ? 900 : 2500;
+            const positioningFloatArray = new Float32Array(adaptiveCount * 3);
 
-            for(let i=0; i<starsCount*3; i++) {
-                absolutePositions[i] = (Math.random() - 0.5) * 300;
+            for(let i=0; i<adaptiveCount*3; i++) {
+                positioningFloatArray[i] = (Math.random() - 0.5) * 350;
             }
 
-            geometricalStars.setAttribute('position', new THREE.BufferAttribute(absolutePositions, 3));
+            bufferGeometry.setAttribute('position', new THREE.BufferAttribute(positioningFloatArray, 3));
 
-            const materialMap = new THREE.PointsMaterial({
-                size: isMobile ? 1.1 : 0.85,
-                color: 0xdfba73,
+            const pointsTextureAttributes = new THREE.PointsMaterial({
+                size: window.innerWidth < 768 ? 1.25 : 0.95,
+                color: 0xe5c17d,
                 transparent: true,
-                opacity: 0.7,
+                opacity: 0.65,
                 blending: THREE.AdditiveBlending
             });
 
-            stardustSystem = new THREE.Points(geometricalStars, materialMap);
-            threeScene.add(stardustSystem);
+            stardustLayer = new THREE.Points(bufferGeometry, pointsTextureAttributes);
+            sceneInstance.add(stardustLayer);
 
-            window.addEventListener('resize', onViewportTransformResize, { passive: true });
-            document.addEventListener('mousemove', onInteractiveCursorMotion, { passive: true });
+            window.addEventListener('resize', executeViewportRecalibration, { passive: true });
+            document.addEventListener('mousemove', cacheCursorCoordinates, { passive: true });
 
-            renderThreeJSAudioLoop();
+            executeWebGLAnimationLoop();
         }
 
-        function onViewportTransformResize() {
-            threeCamera.aspect = window.innerWidth / window.innerHeight;
-            threeCamera.updateProjectionMatrix();
-            threeRenderer.setSize(window.innerWidth, window.innerHeight);
+        function executeViewportRecalibration() {
+            cameraInstance.aspect = window.innerWidth / window.innerHeight;
+            cameraInstance.updateProjectionMatrix();
+            rendererInstance.setSize(window.innerWidth, window.innerHeight);
         }
 
-        function onInteractiveCursorMotion(event) {
-            currentTargetX = (event.clientX - window.innerWidth / 2) * 0.015;
-            currentTargetY = (event.clientY - window.innerHeight / 2) * 0.015;
+        function cacheCursorCoordinates(e) {
+            lerpTargetX = (e.clientX - window.innerWidth / 2) * 0.02;
+            lerpTargetY = (e.clientY - window.innerHeight / 2) * 0.02;
         }
 
-        function renderThreeJSAudioLoop() {
-            requestAnimationFrame(renderThreeJSAudioLoop);
+        function executeWebGLAnimationLoop() {
+            requestAnimationFrame(executeWebGLAnimationLoop);
             
-            stardustSystem.rotation.y += 0.0004;
-            stardustSystem.rotation.x += 0.0001;
+            stardustLayer.rotation.y += 0.0003;
+            stardustLayer.rotation.x += 0.0001;
 
-            // Fluid High-Performance LERP Physics Mechanics
-            trackingX += (currentTargetX - trackingX) * 0.04;
-            trackingY += (currentTargetY - trackingY) * 0.04;
+            // Mathematical LERP to eliminate jittery mouse motion mechanics
+            internalMouseX += (lerpTargetX - internalMouseX) * 0.05;
+            internalMouseY += (lerpTargetY - internalMouseY) * 0.05;
             
-            stardustSystem.position.x = trackingX;
-            stardustSystem.position.y = -trackingY + (window.scrollY * 0.025);
+            stardustLayer.position.x = internalMouseX;
+            stardustLayer.position.y = -internalMouseY + (window.scrollY * 0.03);
 
-            threeRenderer.render(threeScene, threeCamera);
+            rendererInstance.render(sceneInstance, cameraInstance);
         }
 
         gsap.registerPlugin(ScrollTrigger);
 
         window.addEventListener('DOMContentLoaded', () => {
-            initWebGLStardustCanvas();
+            runWebGLInitialization();
             
-            const tl = gsap.timeline();
-            tl.to("#curtain-header", { opacity: 1, y: 0, duration: 1.2, delay: 0.3, ease: "power2.out" })
-              .to("#curtain-interactive-node", { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }, "-=0.8")
-              .to("#curtain-footer", { opacity: 1, duration: 0.8 }, "-=0.5");
+            const introTimeline = gsap.timeline();
+            introTimeline.to("#curtain-top", { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" })
+                         .to("#curtain-center", { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, "-=0.8")
+                         .to("#curtain-bottom", { opacity: 1, y: 0, duration: 1.0 }, "-=0.6");
         });
 
-        function igniteCinematicSystem() {
-            // Unlock scrolling gracefully across all engine layouts simultaneously
+        function unlockInvitationExperience() {
             document.body.classList.remove('overflow-hidden');
 
-            const entryTimeline = gsap.timeline({
-                onComplete: () => {
-                    document.getElementById('loading-curtain').remove();
-                }
+            const exitTimeline = gsap.timeline({
+                onComplete: () => { document.getElementById('curtain-gate').remove(); }
             });
 
-            entryTimeline.to("#loading-curtain", {
+            exitTimeline.to("#curtain-gate", {
                 yPercent: -100,
-                duration: 1.4,
+                duration: 1.3,
                 ease: "power4.inOut"
             })
-            .to("#hud-audio-control", {
+            .to("#audio-hud-node", {
                 opacity: 1,
-                y: 0,
+                x: 0,
                 pointerEvents: "auto",
-                duration: 1.0
-            }, "-=0.5")
-            .from(".hero-stagger-node", {
+                duration: 0.8
+            }, "-=0.4")
+            .from(".hero-fade-item", {
                 opacity: 0,
-                y: 30,
-                stagger: 0.15,
+                y: 40,
+                stagger: 0.2,
                 duration: 1.2,
                 ease: "power3.out"
-            }, "-=1.0")
-            .from(".hero-title-node", {
+            }, "-=0.8")
+            .from(".hero-main-title", {
                 opacity: 0,
-                letterSpacing: "0.4em",
-                duration: 1.8,
+                letterSpacing: "0.35em",
+                duration: 2.0,
                 ease: "power2.out"
-            }, "-=1.2");
+            }, "-=1.4");
 
-            loopAudioContext.volume = 0;
-            loopAudioContext.play().then(() => {
-                visualizerDockElement.classList.remove('audio-paused-state');
-                gsap.to(loopAudioContext, { volume: 0.35, duration: 3.0 });
+            audioDomInstance.volume = 0;
+            audioDomInstance.play().then(() => {
+                waveContainerNode.classList.remove('audio-muted');
+                gsap.to(audioDomInstance, { volume: 0.3, duration: 3.0 });
             }).catch(() => {
-                // Ensure visualizer matches exact audio context state if blocked by default browser flags
-                visualizerDockElement.classList.add('audio-paused-state');
+                waveContainerNode.classList.add('audio-muted');
             });
 
-            initGsapSpatialAnimations();
+            triggerEditorialGSAPEffects();
         }
 
-        function toggleSymphonyPlaystate() {
-            if (loopAudioContext.paused) {
-                loopAudioContext.play();
-                visualizerDockElement.classList.remove('audio-paused-state');
-                gsap.to(loopAudioContext, { volume: 0.35, duration: 1.0 });
+        function handleAudioPlaybackToggle() {
+            if (audioDomInstance.paused) {
+                audioDomInstance.play();
+                waveContainerNode.classList.remove('audio-muted');
+                gsap.to(audioDomInstance, { volume: 0.3, duration: 0.8 });
             } else {
-                gsap.to(loopAudioContext, {
+                gsap.to(audioDomInstance, {
                     volume: 0,
-                    duration: 0.5,
+                    duration: 0.4,
                     onComplete: () => {
-                        loopAudioContext.pause();
-                        visualizerDockElement.classList.add('audio-paused-state');
+                        audioDomInstance.pause();
+                        waveContainerNode.classList.add('audio-muted');
                     }
                 });
             }
         }
 
-        function initGsapSpatialAnimations() {
-            gsap.utils.toArray(".gsap-reveal-block").forEach(element => {
-                gsap.from(element, {
+        function triggerEditorialGSAPEffects() {
+            gsap.utils.toArray(".gsap-reveal").forEach(target => {
+                gsap.from(target, {
                     scrollTrigger: {
-                        trigger: element,
-                        start: "top 92%",
+                        trigger: target,
+                        start: "top 90%",
                         toggleActions: "play none none none"
                     },
                     opacity: 0,
-                    y: 35,
+                    y: 40,
                     duration: 1.2,
                     ease: "power2.out"
                 });
             });
 
-            gsap.from(".gsap-profile-left", {
-                scrollTrigger: { trigger: ".gsap-profile-left", start: "top 88%" },
+            gsap.from(".gsap-left-profile", {
+                scrollTrigger: { trigger: ".gsap-left-profile", start: "top 85%" },
                 opacity: 0,
-                x: -50,
-                duration: 1.4,
+                x: -60,
+                duration: 1.5,
                 ease: "power3.out"
             });
 
-            gsap.from(".gsap-profile-right", {
-                scrollTrigger: { trigger: ".gsap-profile-right", start: "top 88%" },
+            gsap.from(".gsap-right-profile", {
+                scrollTrigger: { trigger: ".gsap-right-profile", start: "top 85%" },
                 opacity: 0,
-                x: 50,
-                duration: 1.4,
+                x: 60,
+                duration: 1.5,
                 ease: "power3.out"
             });
 
-            gsap.from(".gsap-card-element", {
-                scrollTrigger: { trigger: ".gsap-card-element", start: "top 88%" },
+            gsap.from(".gsap-card", {
+                scrollTrigger: { trigger: ".gsap-card", start: "top 88%" },
                 opacity: 0,
-                y: 40,
-                stagger: 0.2,
-                duration: 1.2,
+                y: 50,
+                stagger: 0.25,
+                duration: 1.3,
                 ease: "power2.out"
             });
         }
 
-        function handleRSVPSubmit(event) {
-            event.preventDefault();
-            document.getElementById('rsvp-form').classList.add('hidden');
-            document.getElementById('rsvp-ack').classList.remove('hidden');
-        }
-
         setInterval(function() {
-            const systemTime = new Date().getTime();
-            const deltaDistance = weddingTimestamp - systemTime;
+            const currentTime = new Date().getTime();
+            const timeDifference = weddingTargetTime - currentTime;
 
-            const days = Math.floor(deltaDistance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((deltaDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((deltaDistance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((deltaDistance % (1000 * 60)) / 1000);
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-            document.getElementById("days-span").innerText = String(Math.max(0, days)).padStart(2, '0');
-            document.getElementById("hours-span").innerText = String(Math.max(0, hours)).padStart(2, '0');
-            document.getElementById("minutes-span").innerText = String(Math.max(0, minutes)).padStart(2, '0');
-            document.getElementById("seconds-span").innerText = String(Math.max(0, seconds)).padStart(2, '0');
+            document.getElementById("days-val").innerText = String(Math.max(0, days)).padStart(2, '0');
+            document.getElementById("hours-val").innerText = String(Math.max(0, hours)).padStart(2, '0');
+            document.getElementById("mins-val").innerText = String(Math.max(0, minutes)).padStart(2, '0');
+            document.getElementById("secs-val").innerText = String(Math.max(0, seconds)).padStart(2, '0');
         }, 1000);
     </script>
 </body>
